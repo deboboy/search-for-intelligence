@@ -1,6 +1,17 @@
+## Search for Intelligence
+A new beginning for this AI experiments concept. This version will be focused on LLM evaluation workflow; and feature scoring and storing of results.  
+
+# TODOS
+[ ] Borrow chat streaming response pattern from the original SFI; add to ChatInterface.tsx
+[ ] Add Experiment scoring component from Claude.ai; https://claude.ai/chat/0109d7b7-e9db-4908-8525-135d09c5ff60
+[ ] Store Experiment Setup Settings in a new IndexedDB table
+[ ] Display Experiment Setup Settings in shadcn Sheets component
+
+
+## Stack
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Getting Started
 
 First, run the development server:
 
@@ -20,17 +31,14 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+# Frontend
+One component generated with v0; added via:  
+npx shadcn@latest add "https://v0.dev/chat/b/b_TjhSK7uTda9?token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..r2KrLppGe3u71jwO.Ddq9115ba2zJVKxwpEPlRERcO7dWowYx-Rm7I0t0km-o4FAU4J-PdOqS_cI.wI4X99etPz93-OlzgN3VsA"
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Another component generated with Claude.ai:  
+https://claude.ai/chat/e1823f29-c56b-4ff6-964a-c3915caddf58
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+While other components generated with Cursor + Claude 3.5 Sonnet
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
