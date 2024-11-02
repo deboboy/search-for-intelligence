@@ -2,7 +2,54 @@
 A new beginning for this AI experiments concept. This version will be focused on LLM evaluation workflow; and feature scoring and storing of results.  
 
 # TODOS
-[ ] Borrow chat streaming response pattern from the original SFI; add to ChatInterface.tsx
+[x] Borrow chat streaming response pattern from the original SFI; add to ChatInterface.tsx
+[ ] Fix LLM response added to IndexedDB ChatDatabase; Cursor + Claude 3.5 Sonnet suggests the following:  
+However, there's an issue with the AI's response. The content field only contains 'I', which is not a complete response. This suggests that the AI's response might be getting cut off or not fully captured.
+Let's modify the code to ensure we're capturing the full AI response. Update your useEffect hook in ChatInterface.tsx as follows:  
+```
+useEffect(() => {
+    console.log('Messages updated:', messages);
+    if (shouldAddToDb && messages.length >= 2) {
+        const userMessage = messages[messages.length - 2];
+        const aiMessage = messages[messages.length - 1];
+        if (userMessage.role === 'user' && aiMessage.role === 'assistant') {
+            const newChat = {
+                input: userMessage.content,
+                content: aiMessage.content,
+                llm: ['HuggingFace'],
+                timestamp: new Date().toISOString()
+            };
+            console.log('Attempting to add chat:', newChat);
+            db2.addChat(newChat)
+                .then(() => console.log('Chat added successfully'))
+                .catch((error) => console.error('Error adding chat to database:', error));
+            setShouldAddToDb(false);
+        } else {
+            console.log('Unexpected message roles:', userMessage.role, aiMessage.role);
+        }
+    }
+}, [messages, shouldAddToDb]);
+```  
+This update includes additional logging to help us understand what's happening with the messages.
+Also, let's modify the handleSubmit function in the useChat hook to ensure we're getting the full response:  
+```
+const { messages, input, handleInputChange, handleSubmit } = useChat({
+    api: '/api/huggingface',
+    onResponse: (response) => {
+        console.log('Full API response:', response);
+    },
+    onFinish: (message) => {
+        console.log('Finished message:', message);
+        setShouldAddToDb(true);
+    },
+    onError: (error) => {
+        console.error('Chat error:', error);
+        setError('An error occurred while sending the message. Please try again.');
+    },
+});
+```
+
+
 [ ] Add Experiment scoring component from Claude.ai; https://claude.ai/chat/0109d7b7-e9db-4908-8525-135d09c5ff60
 [ ] Store Experiment Setup Settings in a new IndexedDB table
 [ ] Display Experiment Setup Settings in shadcn Sheets component
