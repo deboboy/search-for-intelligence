@@ -6,16 +6,33 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
+import { db2 } from '@/app/lib/db2'  // Adjust the import path as necessary
 
 export function LlmExperiment() {
   const [selectedLLM, setSelectedLLM] = useState<string>('')
   const [experimentDescription, setExperimentDescription] = useState<string>('')
   const router = useRouter()
 
-  const handleStartExperiment = () => {
-    console.log('Starting experiment with:', { selectedLLM, experimentDescription })
-    // Here you would typically send this data to your backend or perform other actions
-    router.push('/experiment-run')
+  const handleStartExperiment = async () => {
+    try {
+      // Create a new experiment object
+      const newExperiment = {
+        llm: selectedLLM,
+        description: experimentDescription,
+        timestamp: new Date().toISOString()
+      }
+
+      // Add the experiment to the database
+      const experimentId = await db2.addExperiment(newExperiment)
+
+      console.log('Experiment added with ID:', experimentId)
+
+      // Navigate to the experiment run page
+      router.push(`/experiment-run?id=${experimentId}`)
+    } catch (error) {
+      console.error('Error starting experiment:', error)
+      // Handle the error (e.g., show an error message to the user)
+    }
   }
 
   return (
@@ -34,10 +51,10 @@ export function LlmExperiment() {
               <SelectValue placeholder="Choose from built-in models" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="gpt-3.5-turbo">zephyr-7b-beta</SelectItem>
-              <SelectItem value="gpt-4">stability-ai-sdxl</SelectItem>
-              <SelectItem value="claude-v1">bart-large-cnn</SelectItem>
-              <SelectItem value="llama-2">obsidian-3B-V0.5</SelectItem>
+              <SelectItem value="zephyr-7b-beta">zephyr-7b-beta</SelectItem>
+              <SelectItem value="stability-ai-sdxl">stability-ai-sdxl</SelectItem>
+              <SelectItem value="bart-large-cnn">bart-large-cnn</SelectItem>
+              <SelectItem value="obsidian-3B-V0.5">obsidian-3B-V0.5</SelectItem>
             </SelectContent>
           </Select>
         </div>

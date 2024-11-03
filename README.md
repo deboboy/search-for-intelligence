@@ -12,7 +12,7 @@ A new beginning for this AI experiments concept. This version will be focused on
 [ ] Link to Experiment Results from the Screen component, from the summary card for an experiment
 [X] Rename the Settings link in Experiment Run to Summary
 [ ] Add a version number to the Summary card; or borrow the ID number; to display different versions of experiments
-[ ] Add Experiment Intro PromptForm metadata to Experiment Summary card
+[x] Add Experiment Intro PromptForm metadata to Experiment Summary card
 [ ] Fix LLM response added to IndexedDB ChatDatabase; Cursor + Claude 3.5 Sonnet suggests the following:  
 However, there's an issue with the AI's response. The content field only contains 'I', which is not a complete response. This suggests that the AI's response might be getting cut off or not fully captured.
 Let's modify the code to ensure we're capturing the full AI response. Update your useEffect hook in ChatInterface.tsx as follows:  

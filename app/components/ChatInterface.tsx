@@ -6,9 +6,10 @@ import { db2 } from '../lib/db2';
 
 interface ChatInterfaceProps {
     onChatSubmit?: (newChatId: number) => void;
+    experimentId: number;
 }
 
-export function ChatInterface({ onChatSubmit }: ChatInterfaceProps) {
+export function ChatInterface({ onChatSubmit, experimentId }: ChatInterfaceProps) {
     const [error, setError] = useState<string | null>(null);
     const [shouldAddToDb, setShouldAddToDb] = useState(false);
     const { messages, input, handleInputChange, handleSubmit } = useChat({
@@ -29,6 +30,7 @@ export function ChatInterface({ onChatSubmit }: ChatInterfaceProps) {
                     input: userMessage.content,
                     content: aiMessage.content,
                     llm: ['zephyr-7b-beta'],
+                    experimentId: experimentId,
                     timestamp: new Date().toISOString()
                 };
                 console.log('Attempting to add chat:', newChat);

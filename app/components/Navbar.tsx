@@ -20,8 +20,11 @@ export function Navbar() {
       <NavigationMenuList>
         <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Home
+            <NavigationMenuLink className={cn(
+              navigationMenuTriggerStyle(),
+              "font-bold text-lg"
+            )}>
+              Search for Intelligence
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>

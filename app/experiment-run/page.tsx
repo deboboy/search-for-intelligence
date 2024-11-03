@@ -1,60 +1,68 @@
 'use client';
 
-import { ChatInterface } from '../components/ChatInterface';
-import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "@/components/ui/sheet";
 import { useEffect, useState } from 'react';
-import { db2 } from '../lib/db2';
+import { useSearchParams } from 'next/navigation';
+import { db2, Experiment } from '../lib/db2';
+import { ChatInterface } from '../components/ChatInterface';
+import { ChatList } from '../components/ChatList';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import LLMEvaluationScoring from "../components/Scoring";
-import ChatList from '../components/ChatList';
 
 export default function ExperimentRun() {
-    const [currentChatId, setCurrentChatId] = useState<number | null>(null);
+  const [currentChatId, setCurrentChatId] = useState<number | null>(null);
+  const [experiment, setExperiment] = useState<Experiment | null>(null);
+  const searchParams = useSearchParams();
+  const experimentId = Number(searchParams.get('id'));
 
-    useEffect(() => {
-        async function fetchCurrentChatId() {
-          const chats = await db2.getAllChats();
-          if (chats.length > 0) {
-            setCurrentChatId(chats[chats.length - 1].id!);
-          }
+  useEffect(() => {
+    async function fetchExperiment() {
+      if (experimentId) {
+        const fetchedExperiment = await db2.getExperiment(experimentId);
+        if (fetchedExperiment) {
+          setExperiment(fetchedExperiment);
         }
-        fetchCurrentChatId();
-    }, []);
+      }
+    }
+    fetchExperiment();
+  }, [experimentId]);
 
-    // Function to be called when a new chat is submitted
-    const handleChatSubmit = (newChatId: number) => {
-        setCurrentChatId(newChatId);
-    };
+  const handleChatSubmit = (newChatId: number) => {
+    setCurrentChatId(newChatId);
+  };
 
-    return (
-        <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold">Experiment Run</h1>
-            <Sheet>
-                <SheetTrigger>View Summary</SheetTrigger>
-                <SheetContent className="overflow-y-auto">
-                <SheetHeader>
-                    <SheetTitle>Experiment Summary</SheetTitle>
-                    <SheetDescription>
-                    User input from step one, then from model prompts. All content is volitile with IndexedDB storage.
-                    </SheetDescription>
-                    <ChatList />
-                </SheetHeader>
-                </SheetContent>
-            </Sheet>
-            <div className="flex flex-row space-x-4 mt-6">
-                <div className="w-1/2">
-                    <ChatInterface onChatSubmit={handleChatSubmit} />
-                </div>
-                <div className="w-1/2">
-                    <LLMEvaluationScoring chatId={currentChatId} />
-                </div>
+  if (!experiment) {
+    return <div>Loading experiment...</div>;
+  }
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-6">Experiment Run</h1>
+      <Sheet>
+        <SheetTrigger>View Summary</SheetTrigger>
+        <SheetContent className="overflow-y-auto">
+          <SheetHeader>
+            <SheetTitle>Experiment Summary</SheetTitle>
+            <SheetDescription>
+              Setup and a summary of results available here.  Detailed results available from a link within each card set below.
+            </SheetDescription>
+            <div className="mb-4">
+              <h3 className="font-bold">Experiment Setup</h3>
+              <p>LLM: {experiment.llm}</p>
+              <p>Description: {experiment.description}</p>
+              <p>Timestamp: {experiment.timestamp}</p>
             </div>
+            <ChatList experimentId={experiment.id!} />
+          </SheetHeader>
+        </SheetContent>
+      </Sheet>
+      <div className="flex flex-row space-x-4 mt-6">
+        <div className="w-1/2">
+          <ChatInterface onChatSubmit={handleChatSubmit} experimentId={experiment.id!} />
         </div>
-    );
+        <div className="w-1/2">
+          <LLMEvaluationScoring chatId={currentChatId} />
+        </div>
+      </div>
+    </div>
+  );
 }
