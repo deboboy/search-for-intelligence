@@ -4,7 +4,11 @@ import { useState, useEffect } from 'react';
 import { useChat } from 'ai/react';
 import { db2 } from '../lib/db2';
 
-export function ChatInterface() {
+interface ChatInterfaceProps {
+    onChatSubmit?: (newChatId: number) => void;
+}
+
+export function ChatInterface({ onChatSubmit }: ChatInterfaceProps) {
     const [error, setError] = useState<string | null>(null);
     const [shouldAddToDb, setShouldAddToDb] = useState(false);
     const { messages, input, handleInputChange, handleSubmit } = useChat({
@@ -29,12 +33,17 @@ export function ChatInterface() {
                 };
                 console.log('Attempting to add chat:', newChat);
                 db2.addChat(newChat)
-                    .then(() => console.log('Chat added successfully'))
+                    .then((chatId) => {
+                        console.log('Chat added successfully');
+                        if (onChatSubmit && typeof chatId === 'number') {
+                            onChatSubmit(chatId);
+                        }
+                    })
                     .catch((error) => console.error('Error adding chat to database:', error));
                 setShouldAddToDb(false);
             }
         }
-    }, [messages, shouldAddToDb]);
+    }, [messages, shouldAddToDb, onChatSubmit]);
 
     useEffect(() => {
         const loadLastChat = async () => {
@@ -68,12 +77,12 @@ export function ChatInterface() {
     };
 
     return (
-        <div className="flex flex-col h-screen max-w-xl mx-auto p-4">
+        <div className="flex flex-col h-screen max-w-xl mx-auto p-4 rounded-xl border bg-card text-card-foreground shadow">
             {error && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">{error}</div>}
             <div className="flex-1 overflow-y-auto mb-4">
                 {messages.map((m) => (
                     <div key={m.id} className={`mb-4 ${m.role === 'user' ? 'text-right' : 'text-left'}`}>
-                        <span className={`inline-block p-2 rounded-lg ${m.role === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>
+                        <span className={`inline-block p-2 rounded-lg ${m.role === 'user' ? 'bg-black text-white' : 'bg-gray-200'}`}>
                             {m.content}
                         </span>
                     </div>
@@ -86,7 +95,7 @@ export function ChatInterface() {
                     onChange={handleInputChange}
                     placeholder="Type your message..."
                 />
-                <button className="bg-blue-500 text-white rounded-r-lg px-4 py-2" type="submit">
+                <button className="bg-black text-white rounded-r-lg px-4 py-2" type="submit">
                     Send
                 </button>
             </form>

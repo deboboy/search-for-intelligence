@@ -9,7 +9,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { db2, Chat } from '../lib/db2';
 
 interface ScoringProps {
-  chatId: number;
+  chatId: number | null;
 }
 
 const LLMEvaluationScoring: React.FC<ScoringProps> = ({ chatId }) => {
@@ -26,9 +26,11 @@ const LLMEvaluationScoring: React.FC<ScoringProps> = ({ chatId }) => {
         setScores(prevScores => ({ ...prevScores, [metric]: value }));
     };
 
-  useEffect(() => {
-    loadChat();
-  }, [chatId]);
+    useEffect(() => {
+        if (chatId !== null) {
+          loadChat();
+        }
+    }, [chatId]);
 
   const loadChat = async () => {
     try {
@@ -67,8 +69,8 @@ const LLMEvaluationScoring: React.FC<ScoringProps> = ({ chatId }) => {
     }
   };
 
-  if (!chat) {
-    return <div>Loading...</div>;
+  if (chatId === null || !chat) {
+    return <div>Waiting for chat submission...</div>;
   }
 
   return (
