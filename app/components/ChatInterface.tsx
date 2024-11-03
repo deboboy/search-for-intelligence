@@ -24,7 +24,7 @@ export function ChatInterface() {
                 const newChat = {
                     input: userMessage.content,
                     content: aiMessage.content,
-                    llm: ['HuggingFace'],
+                    llm: ['zephyr-7b-beta'],
                     timestamp: new Date().toISOString()
                 };
                 console.log('Attempting to add chat:', newChat);

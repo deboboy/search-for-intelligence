@@ -1,5 +1,19 @@
-// lib/db.ts
-class ChatDB {
+// lib/db2.ts
+export interface Chat {
+    id?: number;
+    input: string;
+    content: string;
+    llm: string[];
+    timestamp: string;
+    scores?: {
+      accuracy: number;
+      relevancy: number;
+      quality: number;
+      factuality: number;
+    };
+  }
+  
+  class ChatDB {
     private db2: IDBDatabase | null = null;
     private readonly dbName = 'ChatDatabase';
     private readonly dbVersion = 1;
@@ -36,12 +50,7 @@ class ChatDB {
       }
     }
   
-    async addChat(chat: {
-      input: string;
-      content: string;
-      llm: string[];
-      timestamp: string;
-    }): Promise<number> {
+    async addChat(chat: Chat): Promise<number> {
       await this.waitForConnection();
       if (!this.db2) throw new Error('Database not initialized');
   
@@ -57,14 +66,23 @@ class ChatDB {
         request.onerror = () => reject(request.error);
       });
     }
+
+    // Add this method to your ChatDB class if it doesn't exist
+    async getChat(id: number): Promise<Chat | undefined> {
+        await this.waitForConnection();
+        if (!this.db2) throw new Error('Database not initialized');
+    
+        return new Promise((resolve, reject) => {
+            const transaction = this.db2!.transaction(['chats'], 'readonly');
+            const store = transaction.objectStore('chats');
+            const request = store.get(id);
+    
+            request.onsuccess = () => resolve(request.result || undefined);
+            request.onerror = () => reject(request.error);
+        });
+    }
   
-    async getAllChats(): Promise<Array<{
-      id: number;
-      input: string;
-      content: string;
-      llm: string[];
-      timestamp: string;
-    }>> {
+    async getAllChats(): Promise<Chat[]> {
       await this.waitForConnection();
       if (!this.db2) throw new Error('Database not initialized');
   
@@ -88,6 +106,44 @@ class ChatDB {
         const request = store.delete(id);
   
         request.onsuccess = () => resolve();
+        request.onerror = () => reject(request.error);
+      });
+    }
+  
+    async updateChatScores(chatId: number, scores: Chat['scores']): Promise<void> {
+      await this.waitForConnection();
+      if (!this.db2) throw new Error('Database not initialized');
+  
+      return new Promise((resolve, reject) => {
+        const transaction = this.db2!.transaction(['chats'], 'readwrite');
+        const store = transaction.objectStore('chats');
+        const request = store.get(chatId);
+  
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => {
+          const chat = request.result;
+          if (chat) {
+            chat.scores = scores;
+            const updateRequest = store.put(chat);
+            updateRequest.onerror = () => reject(updateRequest.error);
+            updateRequest.onsuccess = () => resolve();
+          } else {
+            reject(new Error('Chat not found'));
+          }
+        };
+      });
+    }
+  
+    async getChatById(id: number): Promise<Chat | null> {
+      await this.waitForConnection();
+      if (!this.db2) throw new Error('Database not initialized');
+  
+      return new Promise((resolve, reject) => {
+        const transaction = this.db2!.transaction(['chats'], 'readonly');
+        const store = transaction.objectStore('chats');
+        const request = store.get(id);
+  
+        request.onsuccess = () => resolve(request.result || null);
         request.onerror = () => reject(request.error);
       });
     }

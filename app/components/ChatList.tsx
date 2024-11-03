@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import { db2 } from '../lib/db2';
+import ScoreDisplay from './ScoreDisplay';
 
 interface Chat {
   id: number;
@@ -10,6 +11,7 @@ interface Chat {
   content: string;
   llm: string[];
   timestamp: string;
+  scores?: { [key: string]: number }; // Add this line
 }
 
 export default function ChatList() {
@@ -58,8 +60,8 @@ export default function ChatList() {
           key={chat.id}
           className="bg-white rounded-lg shadow-md p-6 space-y-4"
         >
-          <h3 className="text-lg font-medium text-gray-900">{chat.input}</h3>
-          <p className="text-gray-700 whitespace-pre-wrap">{chat.content}</p>
+          <h3 className="text-lg font-medium text-gray-900">Input: {chat.input}</h3>
+          {/* <p className="text-gray-700 whitespace-pre-wrap">{chat.content}</p> */}
           {chat.input.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {chat.llm.map(llm => (
@@ -72,6 +74,7 @@ export default function ChatList() {
               ))}
             </div>
           )}
+          {chat.scores && <ScoreDisplay scores={chat.scores} />}
           <div className="flex gap-4">
             <button
               onClick={() => handleCopy(chat.content)}
