@@ -3,15 +3,21 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoaded(true), 1000); // splashscreen timer
-    return () => clearTimeout(timer);
-  }, []);
+    const splashTimer = setTimeout(() => setLoaded(true), 1000);
+    const redirectTimer = setTimeout(() => router.push('/experiment-setup'), 3000);
+
+    return () => {
+      clearTimeout(splashTimer);
+      clearTimeout(redirectTimer);
+    };
+  }, [router]);
 
   return (
     <>
@@ -32,13 +38,6 @@ export default function Home() {
 
         <div className={`font-aeonik flex flex-col items-center justify-center h-screen transition-opacity duration-1500 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
           <h1 className="font-aeonik text-black text-2xl mb-4">Search for Intelligence</h1>
-          <Link href="/experiment-setup">
-            <button
-              className="px-4 py-2 ml-auto bg-black text-white font-semibold border-none shadow-lg transform transition-transform hover:scale-105"
-            >
-              BEGIN
-            </button>
-          </Link>
         </div>
       </main>
     </>

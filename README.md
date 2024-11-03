@@ -3,6 +3,14 @@ A new beginning for this AI experiments concept. This version will be focused on
 
 # TODOS
 [x] Borrow chat streaming response pattern from the original SFI; add to ChatInterface.tsx
+[x] Modify routes so the finish page is Experiment Intro after the homepage image dissolves 
+[X] Modify routes so the finish page is Experiment Run after clicking SUBMIT on the Experiment Intro form
+[ ] Modify Experiment Run layout where Scoring component is to the left of the ChatInterface component
+[ ] Create a new page; Experiment Results; which will display model, chat input, LLM response, scores
+[ ] Link to Experiment Results from the Screen component, from the summary card for an experiment
+[ ] Rename the Settings link in Experiment Run to Summary
+[ ] Add a version number to the Summary card; or borrow the ID number; to display different versions of experiments
+[ ] Add Experiment Intro PromptForm metadata to Experiment Summary card
 [ ] Fix LLM response added to IndexedDB ChatDatabase; Cursor + Claude 3.5 Sonnet suggests the following:  
 However, there's an issue with the AI's response. The content field only contains 'I', which is not a complete response. This suggests that the AI's response might be getting cut off or not fully captured.
 Let's modify the code to ensure we're capturing the full AI response. Update your useEffect hook in ChatInterface.tsx as follows:  
@@ -50,7 +58,7 @@ const { messages, input, handleInputChange, handleSubmit } = useChat({
 ```
 
 
-[ ] Add Experiment scoring component from Claude.ai; https://claude.ai/chat/0109d7b7-e9db-4908-8525-135d09c5ff60
+[x] Add Experiment scoring component from Claude.ai; https://claude.ai/chat/0109d7b7-e9db-4908-8525-135d09c5ff60
 [ ] Store Experiment Setup Settings in a new IndexedDB table
 [ ] Display Experiment Setup Settings in shadcn Sheets component
 

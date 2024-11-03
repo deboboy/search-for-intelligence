@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
@@ -9,10 +10,12 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 export function LlmExperiment() {
   const [selectedLLM, setSelectedLLM] = useState<string>('')
   const [experimentDescription, setExperimentDescription] = useState<string>('')
+  const router = useRouter()
 
   const handleStartExperiment = () => {
     console.log('Starting experiment with:', { selectedLLM, experimentDescription })
     // Here you would typically send this data to your backend or perform other actions
+    router.push('/experiment-run')
   }
 
   return (
@@ -57,7 +60,7 @@ export function LlmExperiment() {
           disabled={!selectedLLM || !experimentDescription}
           className="w-full"
         >
-          Start Experiment
+          Run Experiment
         </Button>
       </CardFooter>
     </Card>
