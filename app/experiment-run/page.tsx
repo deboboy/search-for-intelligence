@@ -34,9 +34,9 @@ export default function ExperimentRun() {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold mb-6">Experiment Run</h1>
+            <h1 className="text-3xl font-bold">Experiment Run</h1>
             <Sheet>
-                <SheetTrigger>Summary</SheetTrigger>
+                <SheetTrigger>View Summary</SheetTrigger>
                 <SheetContent className="overflow-y-auto">
                 <SheetHeader>
                     <SheetTitle>Experiment Summary</SheetTitle>
@@ -47,7 +47,7 @@ export default function ExperimentRun() {
                 </SheetHeader>
                 </SheetContent>
             </Sheet>
-            <div className="flex flex-row space-x-4">
+            <div className="flex flex-row space-x-4 mt-6">
                 <div className="w-1/2">
                     <ChatInterface onChatSubmit={handleChatSubmit} />
                 </div>

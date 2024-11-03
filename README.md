@@ -5,10 +5,12 @@ A new beginning for this AI experiments concept. This version will be focused on
 [x] Borrow chat streaming response pattern from the original SFI; add to ChatInterface.tsx
 [x] Modify routes so the finish page is Experiment Intro after the homepage image dissolves 
 [X] Modify routes so the finish page is Experiment Run after clicking SUBMIT on the Experiment Intro form
-[ ] Modify Experiment Run layout where Scoring component is to the left of the ChatInterface component
+[X] Modify Experiment Run layout where Scoring component is to the left of the ChatInterface component
+[x] Add a shadcn UI navbar present on all pages
+[x] Add a shadcn UI breadcrumb component to display current step in the workflow
 [ ] Create a new page; Experiment Results; which will display model, chat input, LLM response, scores
 [ ] Link to Experiment Results from the Screen component, from the summary card for an experiment
-[ ] Rename the Settings link in Experiment Run to Summary
+[X] Rename the Settings link in Experiment Run to Summary
 [ ] Add a version number to the Summary card; or borrow the ID number; to display different versions of experiments
 [ ] Add Experiment Intro PromptForm metadata to Experiment Summary card
 [ ] Fix LLM response added to IndexedDB ChatDatabase; Cursor + Claude 3.5 Sonnet suggests the following:  
