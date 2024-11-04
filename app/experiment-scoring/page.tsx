@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { db2, Chat } from '../lib/db2';
+import { db2 } from '../lib/db2';
 import LLMEvaluationScoring from "../components/Scoring";
 
 export default function ExperimentScoring() {

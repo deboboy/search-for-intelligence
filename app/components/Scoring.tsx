@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { AlertCircle, Save } from 'lucide-react';
@@ -21,10 +21,6 @@ const LLMEvaluationScoring: React.FC<ScoringProps> = ({ chatId }) => {
     });
     const [dbStatus, setDbStatus] = useState('');
     const [chat, setChat] = useState<Chat | null>(null);
-    // Update scores
-    const handleScoreChange = (metric: string, value: string) => {
-        setScores(prevScores => ({ ...prevScores, [metric]: value }));
-    };
 
     useEffect(() => {
         if (chatId !== null) {
@@ -33,6 +29,7 @@ const LLMEvaluationScoring: React.FC<ScoringProps> = ({ chatId }) => {
     }, [chatId]);
 
   const loadChat = async () => {
+    if (chatId === null) return;
     try {
       const loadedChat = await db2.getChatById(chatId);
       setChat(loadedChat);
@@ -40,7 +37,8 @@ const LLMEvaluationScoring: React.FC<ScoringProps> = ({ chatId }) => {
         setScores(loadedChat.scores);
       }
     } catch (error) {
-      setDbStatus('Error loading chat');
+        console.error('Error saving evaluation:', error);
+        setDbStatus('Error saving evaluation');
     }
   };
 
@@ -53,20 +51,25 @@ const LLMEvaluationScoring: React.FC<ScoringProps> = ({ chatId }) => {
 
   const saveEvaluation = async () => {
     try {
-      const scoresToSave = {
-        accuracy: scores.accuracy,
-        relevancy: scores.relevancy,
-        quality: scores.quality,
-        factuality: scores.factuality,
-      };
+        if (chatId === null) {
+            setDbStatus('Cannot save: Chat ID is null');
+            return;
+          }
+
+        const scoresToSave = {
+            accuracy: scores.accuracy,
+            relevancy: scores.relevancy,
+            quality: scores.quality,
+            factuality: scores.factuality,
+        };
       
-      await db2.updateChatScores(chatId, scoresToSave);
-      setDbStatus('Evaluation saved successfully');
-      await loadChat(); // Reload the chat to confirm the update
-    } catch (error) {
-      console.error('Error saving evaluation:', error);
-      setDbStatus('Error saving evaluation');
-    }
+        await db2.updateChatScores(chatId, scoresToSave);
+        setDbStatus('Evaluation saved successfully');
+        await loadChat(); // Reload the chat to confirm the update
+        } catch (error) {
+        console.error('Error saving evaluation:', error);
+        setDbStatus('Error saving evaluation');
+        }
   };
 
   if (chatId === null || !chat) {
