@@ -22,7 +22,10 @@ export default function ExperimentResults() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Experiment Results</h1>
-      {experiments.map((experiment) => (
+      {experiments.length === 0 ? (
+        <p>No experiment results available.</p>
+      ) : (
+        experiments.map((experiment) => (
         <div key={experiment.id} className="mb-8 p-4 border rounded-lg shadow-sm">
           <h2 className="text-2xl font-semibold mb-4">Experiment {experiment.id}</h2>
           <p><strong>LLM:</strong> {experiment.llm}</p>
@@ -53,7 +56,8 @@ export default function ExperimentResults() {
             ))
           }
         </div>
-      ))}
+      ))
+    )}
     </div>
   );
 }
