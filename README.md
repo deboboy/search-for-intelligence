@@ -8,7 +8,7 @@ A new beginning for this AI experiments concept. This version will be focused on
 [X] Modify Experiment Run layout where Scoring component is to the left of the ChatInterface component
 [x] Add a shadcn UI navbar present on all pages
 [x] Add a shadcn UI breadcrumb component to display current step in the workflow
-[ ] Create a new page; Experiment Results; which will display model, chat input, LLM response, scores
+[x] Create a new page; Experiment Results; which will display model, chat input, LLM response, scores
 [ ] Link to Experiment Results from the Screen component, from the summary card for an experiment
 [X] Rename the Settings link in Experiment Run to Summary
 [ ] Add a version number to the Summary card; or borrow the ID number; to display different versions of experiments

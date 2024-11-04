@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { db2, Experiment } from '../lib/db2';
 import { ChatInterface } from '../components/ChatInterface';
@@ -8,7 +8,7 @@ import { ChatList } from '../components/ChatList';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import LLMEvaluationScoring from "../components/Scoring";
 
-export default function ExperimentRun() {
+function ExperimentRunContent() {
   const [currentChatId, setCurrentChatId] = useState<number | null>(null);
   const [experiment, setExperiment] = useState<Experiment | null>(null);
   const searchParams = useSearchParams();
@@ -66,3 +66,11 @@ export default function ExperimentRun() {
     </div>
   );
 }
+
+export default function ExperimentRun() {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <ExperimentRunContent />
+      </Suspense>
+    );
+  }
