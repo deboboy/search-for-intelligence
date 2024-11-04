@@ -11,6 +11,7 @@ export const runtime = 'edge';
 export async function POST(req: Request) {
     // Extract the `messages` from the body of the request
     const { messages } = await req.json();
+    console.log('API response', messages);
 
     // Initialize a text-generation stream using the Hugging Face Inference SDK
     const response = await Hf.textGenerationStream({
@@ -18,7 +19,6 @@ export async function POST(req: Request) {
         inputs: experimental_buildOpenAssistantPrompt(messages),
         parameters: {
             max_new_tokens: 200,
-            // @ts-ignore (this is a valid parameter specifically in OpenAssistant models)
             typical_p: 0.2,
             repetition_penalty: 1,
             truncate: 1000,

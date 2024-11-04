@@ -139,6 +139,8 @@ export interface Chat {
     async addChat(chat: Omit<Chat, 'id'>): Promise<number> {
       await this.waitForConnection();
       if (!this.db2) throw new Error('Database not initialized');
+
+      console.log('Adding chat to DB:', JSON.stringify(chat, null, 2));
   
       return new Promise((resolve, reject) => {
         const transaction = this.db2!.transaction(['chats'], 'readwrite');
@@ -148,7 +150,10 @@ export interface Chat {
           timestamp: new Date().toISOString()
         });
   
-        request.onsuccess = () => resolve(request.result as number);
+        request.onsuccess = () => {
+            console.log('Chat added successfully, ID:', request.result);
+            resolve(request.result as number);
+        };
         request.onerror = () => reject(request.error);
       });
     }

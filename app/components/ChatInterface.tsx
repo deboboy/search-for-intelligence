@@ -14,6 +14,10 @@ export function ChatInterface({ onChatSubmit, experimentId }: ChatInterfaceProps
     const [shouldAddToDb, setShouldAddToDb] = useState(false);
     const { messages, input, handleInputChange, handleSubmit } = useChat({
         api: '/api/huggingface',
+        onFinish: (message) => {
+            console.log('Received message:', message); // Add this line
+            // ... existing onFinish logic ...
+        },
         onError: (error) => {
             console.error('Chat error:', error);
             setError('An error occurred while sending the message. Please try again.');
@@ -47,22 +51,6 @@ export function ChatInterface({ onChatSubmit, experimentId }: ChatInterfaceProps
         }
     }, [messages, shouldAddToDb, onChatSubmit]);
 
-    useEffect(() => {
-        const loadLastChat = async () => {
-            try {
-                const chats = await db2.getAllChats();
-                if (chats.length > 0) {
-                    const lastChat = chats[chats.length - 1];
-                    // Note: We're not setting the input here as useChat manages it
-                }
-            } catch (error) {
-                console.error('Failed to load last chat:', error);
-            }
-        };
-
-        loadLastChat();
-    }, []);
-
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError(null);
@@ -79,7 +67,7 @@ export function ChatInterface({ onChatSubmit, experimentId }: ChatInterfaceProps
     };
 
     return (
-        <div className="flex flex-col h-screen max-w-xl mx-auto p-4 rounded-xl border bg-card text-card-foreground shadow">
+        <div className="flex flex-col max-w-xl mx-auto p-4 rounded-xl border bg-card text-card-foreground shadow">
             {error && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">{error}</div>}
             <div className="flex-1 overflow-y-auto mb-4">
                 {messages.map((m) => (

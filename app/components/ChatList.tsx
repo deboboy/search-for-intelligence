@@ -23,7 +23,8 @@ export function ChatList({ experimentId }: ChatListProps) {
       {chats.map((chat) => (
         <div key={chat.id} className="mb-4 p-2 border rounded">
           <p><strong>Input:</strong> {chat.input}</p>
-          <p><strong>LLM:</strong> {chat.llm.join(', ')}</p>
+          {/* <p><strong>LLM:</strong> {chat.llm.join(', ')}</p> */}
+          <p><strong>LLM Output:</strong> {chat.content}</p>
           {chat.scores && (
             <div>
               <p><strong>Scores:</strong></p>

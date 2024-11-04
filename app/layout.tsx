@@ -2,6 +2,7 @@
 
 import type { Metadata } from "next";
 import { Navbar } from './components/Navbar';
+import { Footer } from "./components/Footer";
 import { usePathname } from 'next/navigation';
 import localFont from "next/font/local";
 import "./globals.css";
@@ -26,12 +27,15 @@ export default function RootLayout({
   const pathname = usePathname()
 
   return (
-    <html lang="en">
+    <html lang="en" className="h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-full`}
       >
         {pathname !== '/' && <Navbar />}
-        {children}
+        <main className="flex-grow">
+          {children}
+        </main>
+        {pathname !== '/' && <Footer />}
       </body>
     </html>
   );

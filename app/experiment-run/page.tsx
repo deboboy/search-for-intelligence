@@ -55,11 +55,11 @@ export default function ExperimentRun() {
           </SheetHeader>
         </SheetContent>
       </Sheet>
-      <div className="flex flex-row space-x-4 mt-6">
-        <div className="w-1/2">
+      <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-6">
+      <div className="w-full md:w-1/2">
           <ChatInterface onChatSubmit={handleChatSubmit} experimentId={experiment.id!} />
         </div>
-        <div className="w-1/2">
+        <div className="w-full md:w-1/2">
           <LLMEvaluationScoring chatId={currentChatId} />
         </div>
       </div>
