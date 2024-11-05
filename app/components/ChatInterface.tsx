@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useChat } from 'ai/react';
 import { db2 } from '../lib/db2';
 
@@ -12,11 +12,14 @@ interface ChatInterfaceProps {
 export function ChatInterface({ onChatSubmit, experimentId }: ChatInterfaceProps) {
     const [error, setError] = useState<string | null>(null);
     const [shouldAddToDb, setShouldAddToDb] = useState(false);
+    const latestMessageRef = useRef<string>('');
+    
     const { messages, input, handleInputChange, handleSubmit } = useChat({
         api: '/api/huggingface',
         onFinish: (message) => {
-            console.log('Received message:', message); // Add this line
-            // ... existing onFinish logic ...
+            console.log('Received message:', message);
+            latestMessageRef.current = message.content;
+            setShouldAddToDb(true);
         },
         onError: (error) => {
             console.error('Chat error:', error);
@@ -25,14 +28,13 @@ export function ChatInterface({ onChatSubmit, experimentId }: ChatInterfaceProps
     });
 
     useEffect(() => {
-        console.log('Messages updated:', messages);
         if (shouldAddToDb && messages.length >= 2) {
             const userMessage = messages[messages.length - 2];
-            const aiMessage = messages[messages.length - 1];
-            if (userMessage.role === 'user' && aiMessage.role === 'assistant') {
+            const aiMessageContent = latestMessageRef.current;
+            if (userMessage.role === 'user' && aiMessageContent) {
                 const newChat = {
                     input: userMessage.content,
-                    content: aiMessage.content,
+                    content: aiMessageContent,
                     llm: ['zephyr-7b-beta'],
                     experimentId: experimentId,
                     timestamp: new Date().toISOString()
@@ -49,7 +51,7 @@ export function ChatInterface({ onChatSubmit, experimentId }: ChatInterfaceProps
                 setShouldAddToDb(false);
             }
         }
-    }, [messages, shouldAddToDb, onChatSubmit]);
+    }, [messages, shouldAddToDb, onChatSubmit, experimentId]);
 
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -59,7 +61,6 @@ export function ChatInterface({ onChatSubmit, experimentId }: ChatInterfaceProps
 
         try {
             await handleSubmit(e);
-            setShouldAddToDb(true);
         } catch (error) {
             console.error('Error in chat submission:', error);
             setError('An error occurred while processing your message. Please try again.');

@@ -9,11 +9,14 @@ A new beginning for this AI experiments concept. This version will be focused on
 [x] Add a shadcn UI navbar present on all pages
 [x] Add a shadcn UI breadcrumb component to display current step in the workflow
 [x] Create a new page; Experiment Results; which will display model, chat input, LLM response, scores
-[ ] Link to Experiment Results from the Screen component, from the summary card for an experiment
+[x] Link to Experiment Results from the Screen component, from the summary card for an experiment
 [X] Rename the Settings link in Experiment Run to Summary
-[ ] Add a version number to the Summary card; or borrow the ID number; to display different versions of experiments
+[x] Add a version number to the Summary card; or borrow the ID number; to display different versions of experiments
 [x] Add Experiment Intro PromptForm metadata to Experiment Summary card
-[ ] Fix LLM response added to IndexedDB ChatDatabase; Cursor + Claude 3.5 Sonnet suggests the following:  
+[ ] Add another LLM endpoint; like Qwen 2.5; to test the modularity of the chat experiments workflow
+[ ] Then add a modular LLM endpoint system for users to add their own endpoint; or as Claude 3.5 Sonnet recommends:  
+The llm field is still hardcoded as ['HuggingFace']. Ideally, this should be dynamic based on the actual LLM being used. You might want to pass this as a prop or manage it in state.
+[x] Fix LLM response added to IndexedDB ChatDatabase; Cursor + Claude 3.5 Sonnet suggests the following:  
 However, there's an issue with the AI's response. The content field only contains 'I', which is not a complete response. This suggests that the AI's response might be getting cut off or not fully captured.
 Let's modify the code to ensure we're capturing the full AI response. Update your useEffect hook in ChatInterface.tsx as follows:  
 ```
