@@ -8,8 +8,23 @@ import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { db2 } from '@/app/lib/db2'  // Adjust the import path as necessary
 
+// Define an interface for the LLM options
+interface LlmOption {
+  value: string;
+  label: string;
+  apiRoute: string;
+}
+
+// Define the LLM options
+const llmOptions: LlmOption[] = [
+  { value: "zephyr-7b-beta", label: "zephyr-7b-beta", apiRoute: "/api/huggingface" },
+  { value: "bart-large-cnn", label: "bart-large-cnn", apiRoute: "/api/huggingface2" },
+  { value: "stability-ai-sdxl", label: "stability-ai-sdxl", apiRoute: "/api/stability" },
+  { value: "obsidian-3B-V0.5", label: "obsidian-3B-V0.5", apiRoute: "/api/obsidian" },
+];
+
 export function LlmExperiment() {
-  const [selectedLLM, setSelectedLLM] = useState<string>('')
+  const [selectedLLM, setSelectedLLM] = useState<LlmOption | null>(null)
   const [experimentDescription, setExperimentDescription] = useState<string>('')
   const router = useRouter()
 
@@ -17,7 +32,7 @@ export function LlmExperiment() {
     try {
       // Create a new experiment object
       const newExperiment = {
-        llm: selectedLLM,
+        llm: selectedLLM?.value ?? '',
         description: experimentDescription,
         timestamp: new Date().toISOString()
       }
@@ -27,11 +42,14 @@ export function LlmExperiment() {
 
       console.log('Experiment added with ID:', experimentId)
 
-      // Navigate to the experiment run page
-      router.push(`/experiment-run?id=${experimentId}`)
+      // Navigate to the experiment run page with the selected LLM and correct API route
+      if (selectedLLM) {
+        router.push(`/experiment-run?id=${experimentId}&llm=${selectedLLM.value}&apiRoute=${selectedLLM.apiRoute}`)
+      } else {
+        console.error('No LLM selected')
+      }
     } catch (error) {
       console.error('Error starting experiment:', error)
-      // Handle the error (e.g., show an error message to the user)
     }
   }
 
@@ -46,14 +64,17 @@ export function LlmExperiment() {
           <label htmlFor="llm-select" className="text-sm font-medium">
             Select LLM
           </label>
-          <Select onValueChange={setSelectedLLM}>
+          <Select onValueChange={(value) => {
+            const option = llmOptions.find(opt => opt.value === value);
+            setSelectedLLM(option || null);
+          }}>
             <SelectTrigger id="llm-select">
               <SelectValue placeholder="Choose from built-in models" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="zephyr-7b-beta">zephyr-7b-beta</SelectItem>
-              <SelectItem value="stability-ai-sdxl">stability-ai-sdxl</SelectItem>
               <SelectItem value="bart-large-cnn">bart-large-cnn</SelectItem>
+              <SelectItem value="stability-ai-sdxl">stability-ai-sdxl</SelectItem>
               <SelectItem value="obsidian-3B-V0.5">obsidian-3B-V0.5</SelectItem>
             </SelectContent>
           </Select>

@@ -9,10 +9,12 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import LLMEvaluationScoring from "../components/Scoring";
 
 function ExperimentRunContent() {
-  const [currentChatId, setCurrentChatId] = useState<number | null>(null);
-  const [experiment, setExperiment] = useState<Experiment | null>(null);
-  const searchParams = useSearchParams();
-  const experimentId = Number(searchParams.get('id'));
+    const [currentChatId, setCurrentChatId] = useState<number | null>(null);
+    const [experiment, setExperiment] = useState<Experiment | null>(null);
+    const searchParams = useSearchParams();
+    const experimentId = Number(searchParams.get('id'));
+    const llm = searchParams.get('llm') || '';
+    const apiRoute = searchParams.get('apiRoute') || '';
 
   useEffect(() => {
     async function fetchExperiment() {
@@ -43,7 +45,7 @@ function ExperimentRunContent() {
           <SheetHeader>
             <SheetTitle>Experiment Summary</SheetTitle>
             <SheetDescription>
-              Setup and a summary of results available here.  Detailed results available from a link within each card set below.
+              View summary of setup and results below for a single experiment run. TODO: add share component.
             </SheetDescription>
             <div className="mb-4">
               <h3 className="font-bold">Experiment Setup</h3>
@@ -57,7 +59,12 @@ function ExperimentRunContent() {
       </Sheet>
       <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-6">
       <div className="w-full md:w-1/2">
-          <ChatInterface onChatSubmit={handleChatSubmit} experimentId={experiment.id!} />
+            <ChatInterface 
+                onChatSubmit={handleChatSubmit} 
+                experimentId={experiment.id!}
+                llm={llm}
+                apiRoute={apiRoute}
+            />
         </div>
         <div className="w-full md:w-1/2">
           <LLMEvaluationScoring chatId={currentChatId} />

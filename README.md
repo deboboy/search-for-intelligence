@@ -14,58 +14,15 @@ A new beginning for this AI experiments concept. This version will be focused on
 [x] Add a version number to the Summary card; or borrow the ID number; to display different versions of experiments
 [x] Add Experiment Intro PromptForm metadata to Experiment Summary card
 [ ] Add another LLM endpoint; like Qwen 2.5; to test the modularity of the chat experiments workflow
+[ ] Add Settings page
+[ ] Add configuration panels on the Settings page; for users to add their API endpoints
+[ ] Add paywall for Settings page
 [ ] Then add a modular LLM endpoint system for users to add their own endpoint; or as Claude 3.5 Sonnet recommends:  
 The llm field is still hardcoded as ['HuggingFace']. Ideally, this should be dynamic based on the actual LLM being used. You might want to pass this as a prop or manage it in state.
-[x] Fix LLM response added to IndexedDB ChatDatabase; Cursor + Claude 3.5 Sonnet suggests the following:  
-However, there's an issue with the AI's response. The content field only contains 'I', which is not a complete response. This suggests that the AI's response might be getting cut off or not fully captured.
-Let's modify the code to ensure we're capturing the full AI response. Update your useEffect hook in ChatInterface.tsx as follows:  
-```
-useEffect(() => {
-    console.log('Messages updated:', messages);
-    if (shouldAddToDb && messages.length >= 2) {
-        const userMessage = messages[messages.length - 2];
-        const aiMessage = messages[messages.length - 1];
-        if (userMessage.role === 'user' && aiMessage.role === 'assistant') {
-            const newChat = {
-                input: userMessage.content,
-                content: aiMessage.content,
-                llm: ['HuggingFace'],
-                timestamp: new Date().toISOString()
-            };
-            console.log('Attempting to add chat:', newChat);
-            db2.addChat(newChat)
-                .then(() => console.log('Chat added successfully'))
-                .catch((error) => console.error('Error adding chat to database:', error));
-            setShouldAddToDb(false);
-        } else {
-            console.log('Unexpected message roles:', userMessage.role, aiMessage.role);
-        }
-    }
-}, [messages, shouldAddToDb]);
-```  
-This update includes additional logging to help us understand what's happening with the messages.
-Also, let's modify the handleSubmit function in the useChat hook to ensure we're getting the full response:  
-```
-const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: '/api/huggingface',
-    onResponse: (response) => {
-        console.log('Full API response:', response);
-    },
-    onFinish: (message) => {
-        console.log('Finished message:', message);
-        setShouldAddToDb(true);
-    },
-    onError: (error) => {
-        console.error('Chat error:', error);
-        setError('An error occurred while sending the message. Please try again.');
-    },
-});
-```
-
-
+[x] Fix LLM response added to IndexedDB ChatDatabase
 [x] Add Experiment scoring component from Claude.ai; https://claude.ai/chat/0109d7b7-e9db-4908-8525-135d09c5ff60
-[ ] Store Experiment Setup Settings in a new IndexedDB table
-[ ] Display Experiment Setup Settings in shadcn Sheets component
+[x] Store Experiment Setup Settings in a new IndexedDB table
+[x] Display Experiment Setup Settings in shadcn Sheets component
 
 
 ## Stack

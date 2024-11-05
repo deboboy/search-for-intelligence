@@ -38,6 +38,7 @@ export default function Home() {
 
         <div className={`font-aeonik flex flex-col items-center justify-center h-screen transition-opacity duration-1500 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
           <h1 className="font-aeonik text-black text-2xl mb-4">Search for Intelligence</h1>
+          <p className="font-aeonik text-black">Evaluate open source LLMs with scoring.</p>
         </div>
       </main>
     </>

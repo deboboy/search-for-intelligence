@@ -7,15 +7,17 @@ import { db2 } from '../lib/db2';
 interface ChatInterfaceProps {
     onChatSubmit?: (newChatId: number) => void;
     experimentId: number;
+    llm: string;
+    apiRoute: string;
 }
 
-export function ChatInterface({ onChatSubmit, experimentId }: ChatInterfaceProps) {
+export function ChatInterface({ onChatSubmit, experimentId, llm, apiRoute }: ChatInterfaceProps) {
     const [error, setError] = useState<string | null>(null);
     const [shouldAddToDb, setShouldAddToDb] = useState(false);
     const latestMessageRef = useRef<string>('');
     
     const { messages, input, handleInputChange, handleSubmit } = useChat({
-        api: '/api/huggingface',
+        api: apiRoute,
         onFinish: (message) => {
             console.log('Received message:', message);
             latestMessageRef.current = message.content;
@@ -35,7 +37,7 @@ export function ChatInterface({ onChatSubmit, experimentId }: ChatInterfaceProps
                 const newChat = {
                     input: userMessage.content,
                     content: aiMessageContent,
-                    llm: ['zephyr-7b-beta'],
+                    llm: [llm],
                     experimentId: experimentId,
                     timestamp: new Date().toISOString()
                 };
@@ -51,7 +53,7 @@ export function ChatInterface({ onChatSubmit, experimentId }: ChatInterfaceProps
                 setShouldAddToDb(false);
             }
         }
-    }, [messages, shouldAddToDb, onChatSubmit, experimentId]);
+    }, [messages, shouldAddToDb, onChatSubmit, experimentId, llm]);
 
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
