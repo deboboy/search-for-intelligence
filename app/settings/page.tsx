@@ -6,7 +6,7 @@ export default function Settings() {
       <h1 className="text-3xl font-bold mb-6">Settings</h1>
       TODO: Add v0 panels for configuration; API endpoints, storage.
       TODO: Think about relationship to account system for paid users.
-      TODO: Create a pattern that's strict about API endpoint error handling. 
+      TODO: Create a pattern that&aposs strict about API endpoint error handling. 
     </div>
   );
 }
