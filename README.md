@@ -17,6 +17,7 @@ A new beginning for this AI experiments concept. This version will be focused on
 [x] Add Settings page
 [ ] Add configuration panels on the Settings page; for users to add their API endpoints
 [ ] Add paywall for Settings page
+[ ] Add account system connected to paid status
 [ ] Then add a modular LLM endpoint system for users to add their own endpoint
 [x] Fix LLM response added to IndexedDB ChatDatabase
 [x] Add Experiment scoring component from Claude.ai; https://claude.ai/chat/0109d7b7-e9db-4908-8525-135d09c5ff60
