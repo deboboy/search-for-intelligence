@@ -43,7 +43,7 @@ function ExperimentRunContent() {
         <SheetTrigger>View Summary</SheetTrigger>
         <SheetContent className="overflow-y-auto">
           <SheetHeader>
-            <SheetTitle>Experiment Summary</SheetTitle>
+            <SheetTitle>Experiment Run Summary</SheetTitle>
             <SheetDescription>
               View summary of setup and results below for a single experiment run. TODO: add share component.
             </SheetDescription>
