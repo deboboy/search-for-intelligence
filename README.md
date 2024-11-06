@@ -14,11 +14,10 @@ A new beginning for this AI experiments concept. This version will be focused on
 [x] Add a version number to the Summary card; or borrow the ID number; to display different versions of experiments
 [x] Add Experiment Intro PromptForm metadata to Experiment Summary card
 [ ] Add another LLM endpoint; like Qwen 2.5; to test the modularity of the chat experiments workflow
-[ ] Add Settings page
+[x] Add Settings page
 [ ] Add configuration panels on the Settings page; for users to add their API endpoints
 [ ] Add paywall for Settings page
-[ ] Then add a modular LLM endpoint system for users to add their own endpoint; or as Claude 3.5 Sonnet recommends:  
-The llm field is still hardcoded as ['HuggingFace']. Ideally, this should be dynamic based on the actual LLM being used. You might want to pass this as a prop or manage it in state.
+[ ] Then add a modular LLM endpoint system for users to add their own endpoint
 [x] Fix LLM response added to IndexedDB ChatDatabase
 [x] Add Experiment scoring component from Claude.ai; https://claude.ai/chat/0109d7b7-e9db-4908-8525-135d09c5ff60
 [x] Store Experiment Setup Settings in a new IndexedDB table
