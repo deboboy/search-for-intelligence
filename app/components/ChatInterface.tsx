@@ -11,11 +11,36 @@ interface ChatInterfaceProps {
     apiRoute: string;
 }
 
-export function ChatInterface({ onChatSubmit, experimentId, llm, apiRoute }: ChatInterfaceProps) {
+// Add this type definition
+type ChatOptions = {
+    api: string;
+    body: {
+      system_prompt?: string;
+      prompt?: string;
+    };
+    onFinish: (message: { content: string }) => void;
+    onError: (error: Error) => void;
+};
+
+export default function ChatInterface({ onChatSubmit, experimentId, llm, apiRoute }: ChatInterfaceProps) {
     const [error, setError] = useState<string | null>(null);
     const [shouldAddToDb, setShouldAddToDb] = useState(false);
     const latestMessageRef = useRef<string>('');
     
+    const chatOptions: ChatOptions = {
+        api: apiRoute,
+        body: {}, // Initialize an empty body object
+        onFinish: (message: { content: string }) => {
+            console.log('Received message:', message);
+            latestMessageRef.current = message.content;
+            setShouldAddToDb(true);
+        },
+        onError: (error: Error) => {
+            console.error('Chat error:', error);
+            setError('An error occurred while sending the message. Please try again.');
+        },
+    };
+
     const { messages, input, handleInputChange, handleSubmit } = useChat({
         api: apiRoute,
         onFinish: (message) => {
@@ -28,6 +53,20 @@ export function ChatInterface({ onChatSubmit, experimentId, llm, apiRoute }: Cha
             setError('An error occurred while sending the message. Please try again.');
         },
     });
+
+    // Only add system_prompt and prompt for Replicate
+    if (apiRoute === '/api/replicate-text') {
+        chatOptions.body = {
+            system_prompt: "You are a helpful AI assistant.",
+        };
+    }
+
+    // Add this useEffect to update the prompt dynamically
+    useEffect(() => {
+        if (apiRoute === '/api/replicate-text') {
+            chatOptions.body.prompt = input;
+        }
+    }, [input, apiRoute]);
 
     useEffect(() => {
         if (shouldAddToDb && messages.length >= 2) {
@@ -62,6 +101,7 @@ export function ChatInterface({ onChatSubmit, experimentId, llm, apiRoute }: Cha
         if (!input.trim()) return;
 
         try {
+            console.log('Submitting with options:', chatOptions); // Add this line
             await handleSubmit(e);
         } catch (error) {
             console.error('Error in chat submission:', error);
@@ -70,7 +110,7 @@ export function ChatInterface({ onChatSubmit, experimentId, llm, apiRoute }: Cha
     };
 
     return (
-        <div className="flex flex-col max-w-xl mx-auto p-4 rounded-xl border bg-card text-card-foreground shadow">
+        <div className="flex flex-col max-w-xl mx-auto p-4 rounded-xl border bg-card text-card-foreground shadow mt-5">
             {error && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">{error}</div>}
             <div className="flex-1 overflow-y-auto mb-4">
                 {messages.map((m) => (

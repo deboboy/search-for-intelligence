@@ -2,6 +2,10 @@
 A new beginning for this AI experiments concept. This version will be focused on LLM evaluation workflow; and feature scoring and storing of results.  
 
 # TODOS
+[ ] Fix architecture so that generated image is loaded in the Experiment Summary sheet component; and in the Experiments Results page
+[x] Fix architecture so that selecting Replicate model switches to ImageInterface in ExperimentRun; not ChatInterface; because the Replicate model is an image LLM response 
+[ ] Fix prompt required error; OpenRouter API
+[ ] Fix this error in the AWS environment; Error: OpenRouter API key not configured
 [x] Borrow chat streaming response pattern from the original SFI; add to ChatInterface.tsx
 [x] Modify routes so the finish page is Experiment Intro after the homepage image dissolves 
 [X] Modify routes so the finish page is Experiment Run after clicking SUBMIT on the Experiment Intro form

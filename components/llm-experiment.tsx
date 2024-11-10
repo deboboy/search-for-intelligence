@@ -13,14 +13,14 @@ interface LlmOption {
   value: string;
   label: string;
   apiRoute: string;
+  isImageModel: boolean;
 }
 
 // Define the LLM options
 const llmOptions: LlmOption[] = [
-  { value: "zephyr-7b-beta", label: "zephyr-7b-beta", apiRoute: "/api/huggingface" },
-  { value: "qwen-2.5-7b-instruct", label: "qwen-2.5-7b-instruct", apiRoute: "/api/openrouter" },
-  { value: "stability-ai-sdxl", label: "stability-ai-sdxl", apiRoute: "/api/stability" },
-  { value: "obsidian-3B-V0.5", label: "obsidian-3B-V0.5", apiRoute: "/api/obsidian" },
+  { value: "zephyr-7b-beta", label: "zephyr-7b-beta", apiRoute: "/api/huggingface", isImageModel: false },
+  { value: "qwen-2.5-7b-instruct", label: "qwen-2.5-7b-instruct", apiRoute: "/api/openrouter", isImageModel: false },
+  { value: "stability-ai/sdxl", label: "stability-ai/sdxl", apiRoute: "/api/replicate", isImageModel: true },
 ];
 
 export function LlmExperiment() {
@@ -44,7 +44,8 @@ export function LlmExperiment() {
 
       // Navigate to the experiment run page with the selected LLM and correct API route
       if (selectedLLM) {
-        router.push(`/experiment-run?id=${experimentId}&llm=${selectedLLM.value}&apiRoute=${selectedLLM.apiRoute}`)
+        // In the handleStartExperiment function, update the router.push call
+        router.push(`/experiment-run?id=${experimentId}&llm=${selectedLLM.value}&apiRoute=${selectedLLM.apiRoute}&isImageModel=${selectedLLM.isImageModel}`)
       } else {
         console.error('No LLM selected')
       }
@@ -74,8 +75,7 @@ export function LlmExperiment() {
             <SelectContent>
               <SelectItem value="zephyr-7b-beta">zephyr-7b-beta</SelectItem>
               <SelectItem value="qwen-2.5-7b-instruct">qwen-2.5-7b-instruct</SelectItem>
-              <SelectItem value="stability-ai-sdxl">stability-ai-sdxl</SelectItem>
-              <SelectItem value="obsidian-3B-V0.5">obsidian-3B-V0.5</SelectItem>
+              <SelectItem value="stability-ai/sdxl">stability-ai/sdxl</SelectItem>
             </SelectContent>
           </Select>
         </div>

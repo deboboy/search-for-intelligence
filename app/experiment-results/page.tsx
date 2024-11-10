@@ -32,7 +32,7 @@ export default function ExperimentResults() {
           <p><strong>Description:</strong> {experiment.description}</p>
           <p><strong>Timestamp:</strong> {new Date(experiment.timestamp).toLocaleString()}</p>
           
-          <h3 className="text-xl font-semibold mt-4 mb-2">Chats</h3>
+          <h3 className="text-xl font-semibold mt-4 mb-2">Run History</h3>
           {chats
             .filter(chat => chat.experimentId === experiment.id)
             .map((chat) => (

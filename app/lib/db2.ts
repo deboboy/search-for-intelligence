@@ -12,6 +12,7 @@ export interface Chat {
       quality: number;
       factuality: number;
     };
+    imageUrl?: string; // Add this field to store image URLs or base64 encoded image data
   }
 
   export interface Experiment {
@@ -19,6 +20,7 @@ export interface Chat {
     llm: string;
     description: string;
     timestamp: string;
+    imageUrl?: string; // Add this line
   }
   
   class ChatDB {
@@ -78,63 +80,87 @@ export interface Chat {
           request.onsuccess = () => resolve(request.result as number);
           request.onerror = () => reject(request.error);
         });
-      }
+    }
 
-      async getExperiment(id: number): Promise<Experiment | undefined> {
-        await this.waitForConnection();
-        if (!this.db2) throw new Error('Database not initialized');
-    
-        return new Promise((resolve, reject) => {
-          const transaction = this.db2!.transaction(['experiments'], 'readonly');
-          const store = transaction.objectStore('experiments');
-          const request = store.get(id);
-    
-          request.onsuccess = () => resolve(request.result || undefined);
-          request.onerror = () => reject(request.error);
-        });
-      }
+    async getExperiment(id: number): Promise<Experiment | undefined> {
+      await this.waitForConnection();
+      if (!this.db2) throw new Error('Database not initialized');
+  
+      return new Promise((resolve, reject) => {
+        const transaction = this.db2!.transaction(['experiments'], 'readonly');
+        const store = transaction.objectStore('experiments');
+        const request = store.get(id);
+  
+        request.onsuccess = () => resolve(request.result || undefined);
+        request.onerror = () => reject(request.error);
+      });
+    }
 
-      async getAllExperiments(): Promise<Experiment[]> {
-        await this.waitForConnection();
-        if (!this.db2) throw new Error('Database not initialized');
-    
-        return new Promise((resolve, reject) => {
-          const transaction = this.db2!.transaction(['experiments'], 'readonly');
-          const store = transaction.objectStore('experiments');
-          const request = store.getAll();
-    
-          request.onsuccess = () => resolve(request.result);
-          request.onerror = () => reject(request.error);
-        });
-      }
+    async getAllExperiments(): Promise<Experiment[]> {
+      await this.waitForConnection();
+      if (!this.db2) throw new Error('Database not initialized');
+  
+      return new Promise((resolve, reject) => {
+        const transaction = this.db2!.transaction(['experiments'], 'readonly');
+        const store = transaction.objectStore('experiments');
+        const request = store.getAll();
+  
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+      });
+    }
 
-      async updateExperiment(experiment: Experiment): Promise<void> {
-        await this.waitForConnection();
-        if (!this.db2) throw new Error('Database not initialized');
-    
-        return new Promise((resolve, reject) => {
-          const transaction = this.db2!.transaction(['experiments'], 'readwrite');
-          const store = transaction.objectStore('experiments');
-          const request = store.put(experiment);
-    
-          request.onsuccess = () => resolve();
-          request.onerror = () => reject(request.error);
-        });
-      }
+    async updateExperiment(experiment: Experiment): Promise<void> {
+      await this.waitForConnection();
+      if (!this.db2) throw new Error('Database not initialized');
+  
+      return new Promise((resolve, reject) => {
+        const transaction = this.db2!.transaction(['experiments'], 'readwrite');
+        const store = transaction.objectStore('experiments');
+        const request = store.put(experiment);
+  
+        request.onsuccess = () => resolve();
+        request.onerror = () => reject(request.error);
+      });
+    }
 
-      async deleteExperiment(id: number): Promise<void> {
-        await this.waitForConnection();
-        if (!this.db2) throw new Error('Database not initialized');
-    
-        return new Promise((resolve, reject) => {
-          const transaction = this.db2!.transaction(['experiments'], 'readwrite');
-          const store = transaction.objectStore('experiments');
-          const request = store.delete(id);
-    
-          request.onsuccess = () => resolve();
-          request.onerror = () => reject(request.error);
-        });
-      }
+    async updateExperimentImageUrl(experimentId: number, imageUrl: string): Promise<void> {
+      await this.waitForConnection();
+      if (!this.db2) throw new Error('Database not initialized');
+  
+      return new Promise((resolve, reject) => {
+        const transaction = this.db2!.transaction(['experiments'], 'readwrite');
+        const store = transaction.objectStore('experiments');
+        const request = store.get(experimentId);
+  
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => {
+          const experiment = request.result;
+          if (experiment) {
+            experiment.imageUrl = imageUrl;
+            const updateRequest = store.put(experiment);
+            updateRequest.onerror = () => reject(updateRequest.error);
+            updateRequest.onsuccess = () => resolve();
+          } else {
+            reject(new Error('Experiment not found'));
+          }
+        };
+      });
+    }
+
+    async deleteExperiment(id: number): Promise<void> {
+      await this.waitForConnection();
+      if (!this.db2) throw new Error('Database not initialized');
+  
+      return new Promise((resolve, reject) => {
+        const transaction = this.db2!.transaction(['experiments'], 'readwrite');
+        const store = transaction.objectStore('experiments');
+        const request = store.delete(id);
+  
+        request.onsuccess = () => resolve();
+        request.onerror = () => reject(request.error);
+      });
+    }
   
     async addChat(chat: Omit<Chat, 'id'>): Promise<number> {
       await this.waitForConnection();

@@ -64,7 +64,7 @@ const LLMEvaluationScoring: React.FC<ScoringProps> = ({ chatId }) => {
         };
       
         await db2.updateChatScores(chatId, scoresToSave);
-        setDbStatus('Evaluation saved successfully');
+        setDbStatus('Evaluation saved');
         await loadChat(); // Reload the chat to confirm the update
         } catch (error) {
         console.error('Error saving evaluation:', error);
@@ -73,11 +73,11 @@ const LLMEvaluationScoring: React.FC<ScoringProps> = ({ chatId }) => {
   };
 
   if (chatId === null || !chat) {
-    return <div>Waiting for chat submission...</div>;
+    return <div className="mt-5">Waiting for human input...</div>;
   }
 
   return (
-    <Card className="w-full max-w-2xl">
+    <Card className="w-full max-w-2xl mt-5">
       <CardHeader>
         {/* <CardTitle className="text-2xl">LLM Evaluation Scoring</CardTitle> */}
         {chat && (
