@@ -55,7 +55,8 @@ function ExperimentRunContent() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Experiment Run</h1>
-      <div className="flex justify-end mb-4"> {/* Add this container */}
+      <p>Submit input to start the experiment run; then score the LLM output.</p>
+      <div className="flex justify-end mb-4">
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="outline">View Summary</Button>

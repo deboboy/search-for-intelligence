@@ -2,10 +2,18 @@
 
 import { useEffect, useState } from 'react';
 import { db2, Experiment, Chat } from '../lib/db2';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 export default function ExperimentResults() {
   const [experiments, setExperiments] = useState<Experiment[]>([]);
   const [chats, setChats] = useState<Chat[]>([]);
+  const [sortOrder, setSortOrder] = useState<string>('newest');
 
   useEffect(() => {
     async function fetchData() {
@@ -19,13 +27,34 @@ export default function ExperimentResults() {
     fetchData();
   }, []);
 
+  const sortedExperiments = [...experiments].sort((a, b) => {
+    if (sortOrder === 'newest') {
+      return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+    } else if (sortOrder === 'oldest') {
+      return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime();
+    }
+    return 0;
+  });
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Experiment Results</h1>
-      {experiments.length === 0 ? (
+      <p>View all experiment results.  Sort from newest to oldest.</p>
+      <div className="flex justify-end mb-4">
+        <Select onValueChange={setSortOrder} defaultValue={sortOrder}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Sort order" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="newest">Newest First</SelectItem>
+            <SelectItem value="oldest">Oldest First</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      {sortedExperiments.length === 0 ? (
         <p>No experiment results available.</p>
       ) : (
-        experiments.map((experiment: Experiment) => (
+        sortedExperiments.map((experiment: Experiment) => (
         <div key={experiment.id} className="mb-8 p-4 border rounded-lg shadow-sm">
           <h2 className="text-2xl font-semibold mb-4">Experiment {experiment.id}</h2>
           <p><strong>LLM:</strong> {experiment.llm}</p>

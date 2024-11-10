@@ -57,8 +57,8 @@ export function LlmExperiment() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle>Settings</CardTitle>
-        <CardDescription>Select an LLM then describe your experiment</CardDescription>
+        <CardTitle>Setup</CardTitle>
+        <CardDescription>Select an LLM. Then describe your experiment in detail; which is used for comparison in a later step.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">

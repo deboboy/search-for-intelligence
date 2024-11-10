@@ -126,7 +126,7 @@ export default function ChatInterface({ onChatSubmit, experimentId, llm, apiRout
                     className="flex-1 border rounded-l-lg p-2"
                     value={input}
                     onChange={handleInputChange}
-                    placeholder="Type your message..."
+                    placeholder="Enter a prompt to generate text..."
                 />
                 <button className="bg-black text-white rounded-r-lg px-4 py-2" type="submit">
                     Send
