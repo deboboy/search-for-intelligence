@@ -25,7 +25,7 @@ export default function ExperimentResults() {
       {experiments.length === 0 ? (
         <p>No experiment results available.</p>
       ) : (
-        experiments.map((experiment) => (
+        experiments.map((experiment: Experiment) => (
         <div key={experiment.id} className="mb-8 p-4 border rounded-lg shadow-sm">
           <h2 className="text-2xl font-semibold mb-4">Experiment {experiment.id}</h2>
           <p><strong>LLM:</strong> {experiment.llm}</p>
