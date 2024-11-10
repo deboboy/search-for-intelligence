@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
+import { Card, CardHeader, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { db2 } from '@/app/lib/db2'  // Adjust the import path as necessary
 
 // Define an interface for the LLM options
@@ -57,7 +57,6 @@ export function LlmExperiment() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle>Setup</CardTitle>
         <CardDescription>Select an LLM. Then describe your experiment in detail; which is used for comparison in a later step.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
