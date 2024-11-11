@@ -6,7 +6,7 @@ export default function ExperimentSetup() {
       <h1 className="text-5xl md:text-7xl font-extrabold mb-5 animate-fade-in-up">
         Experiment Setup
       </h1>
-      <p>Fill out the form to setup an experiment.</p>
+      <p className="mb-5">Load an LLM, prompt it, then score the LLM output to run an experiment.  Fill out the form to get started.</p>
       <LlmExperiment />
     </div>
   );

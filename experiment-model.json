@@ -1,0 +1,21 @@
+{
+  "experiment": {
+    "title": "Experiment title",
+    "llm": "LLM",
+    "description": "Description of the experiment",
+    "timestamp": "Timestamp",
+    "runHistory": [
+      {
+        "humanInput": "Human input",
+        "llmOutput": "LLM output",
+        "timestamp": "Timestamp",
+        "scores": {
+          "accuracy": 0,
+          "relevancy": 0,
+          "quality": 0,
+          "factuality": 0
+        }
+      }
+    ]
+  }
+}
