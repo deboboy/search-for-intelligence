@@ -9,8 +9,8 @@ export function Navbar() {
   const pathname = usePathname()
 
   const links = [
+    { href: 'about', label: 'About'},
     { href: '/experiment-setup', label: 'Experiment Setup' },
-    { href: '/experiment-run', label: 'Experiment Run' },
     { href: '/experiment-results', label: 'Experiment Results' },
   ]
 

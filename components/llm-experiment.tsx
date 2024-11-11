@@ -57,9 +57,23 @@ export function LlmExperiment() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardDescription>Select an LLM. Then describe your experiment in detail; which is used for comparison in a later step.</CardDescription>
+        <CardDescription>Describe your experiment in detail; which is used for comparison in the results step.
+          Then select an LLM to run the experiment with. 
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
+        <div className="space-y-2">
+          <label htmlFor="experiment-description" className="text-sm font-medium">
+            Describe Experiment
+          </label>
+          <Textarea
+            id="experiment-description"
+            placeholder="For example: evaluate text generation quality for software architecture; or relevancy for image generation"
+            value={experimentDescription}
+            onChange={(e) => setExperimentDescription(e.target.value)}
+            rows={4}
+          />
+        </div>
         <div className="space-y-2">
           <label htmlFor="llm-select" className="text-sm font-medium">
             Select LLM
@@ -77,18 +91,6 @@ export function LlmExperiment() {
               <SelectItem value="stability-ai/sdxl">stability-ai/sdxl</SelectItem>
             </SelectContent>
           </Select>
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="experiment-description" className="text-sm font-medium">
-            Describe Experiment
-          </label>
-          <Textarea
-            id="experiment-description"
-            placeholder="Describe your experiment here..."
-            value={experimentDescription}
-            onChange={(e) => setExperimentDescription(e.target.value)}
-            rows={4}
-          />
         </div>
       </CardContent>
       <CardFooter>

@@ -37,8 +37,8 @@ export default function Home() {
         </div>
 
         <div className={`font-aeonik flex flex-col items-center justify-center h-screen transition-opacity duration-1500 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
-          <h1 className="font-aeonik text-black text-2xl mb-4">Search for Intelligence</h1>
-          <p className="font-aeonik text-black">Evaluate open source LLMs with scoring.</p>
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-5 animate-fade-in-up">Search for Intelligence</h1>
+          <p className="text-xl md:text-2xl mb-8 animate-fade-in-up animation-delay-200">Evaluate open source LLMs with scoring.</p>
         </div>
       </main>
     </>
