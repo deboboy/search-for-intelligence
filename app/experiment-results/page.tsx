@@ -69,8 +69,8 @@ export default function ExperimentResults() {
             .map((chat) => (
               <div key={chat.id} className="mb-4 p-2 border-t">
                 <p><strong>Input:</strong> {chat.input}</p>
-                <p><strong>Content:</strong> {chat.content}</p>
-                <p><strong>LLM:</strong> {chat.llm.join(', ')}</p>
+                <p><strong>Output:</strong> {chat.content}</p>
+                {/* <p><strong>LLM:</strong> {chat.llm.join(', ')}</p> */}
                 <p><strong>Timestamp:</strong> {new Date(chat.timestamp).toLocaleString()}</p>
                 {chat.scores && (
                   <div>

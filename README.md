@@ -8,13 +8,14 @@ A new beginning for this AI experiments concept. This version will be focused on
 
 
 # TODOS
-[x] Add shadcn ui sort component to /experiment-results page
+[ ] Add web analytics; if not Posthog then an equivalent; see what's low cost of free in AWS Amplify
 [ ] Add shadcn ui compare component to /experiment-results page; to select two experiments for comparison; see what v0 generated here: npx shadcn@latest add "https://v0.dev/chat/b/b_19FJyS4Oa8Q?token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SsqUYHM75vmXAS42.TtFDAElwsIM1gQJPQsUUA8JTBjRCPJT03yS0kTxO32trAc6HuCGFljSH5Kw.I4JlyAl9kYb6u-8MM-WN2Q"
 [ ] To add the v0 comparison sub-system: npx shadcn@latest add "https://v0.dev/chat/b/b_19FJyS4Oa8Q?token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SsqUYHM75vmXAS42.TtFDAElwsIM1gQJPQsUUA8JTBjRCPJT03yS0kTxO32trAc6HuCGFljSH5Kw.I4JlyAl9kYb6u-8MM-WN2Q"
 [ ] Think about whether the comparison sub-system is on displayed on /experiment-results or a page below that route; something like /experiment-results/comparison 
 [ ] Also think about how to architect the comparison sub-system to compare two different LLMs for the same input; and possibly integrate this in the /experiments-setup form
 [ ] Fix architecture so that generated image is loaded in the Experiment Summary sheet component; and in the Experiments Results page
 [ ] Add CSV download to /experiment-results page
+[x] Add shadcn ui sort component to /experiment-results page
 [x] Fix architecture so that selecting Replicate model switches to ImageInterface in ExperimentRun; not ChatInterface; because the Replicate model is an image LLM response 
 [x] Fix prompt required error; OpenRouter API
 [x] Fix this error in the AWS environment; Error: OpenRouter API key not configured
