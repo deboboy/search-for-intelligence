@@ -8,6 +8,8 @@ A new beginning for this AI experiments concept. This version will be focused on
 
 
 # TODOS
+[ ] Continue integrating the Claude.ai generated comparison component; WIP is ComparisonTableChart.tsx where /lib/db2.ts mapping is complete; continue from this response "You'll need to implement the logic for selecting experiments and calculating diffs based on your specific requirements. Also, make sure to handle cases where scores might be undefined."
+[ ] Think about how to integrate selecting two LLMs in /experiment-setup; then setting a prompt submitted to both LLMs, then seeing the output from both LLMs to be able to score the outputs
 [ ] Add web analytics; if not Posthog then an equivalent; see what's low cost of free in AWS Amplify
 [ ] Add shadcn ui compare component to /experiment-results page; to select two experiments for comparison; see what v0 generated here: npx shadcn@latest add "https://v0.dev/chat/b/b_19FJyS4Oa8Q?token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SsqUYHM75vmXAS42.TtFDAElwsIM1gQJPQsUUA8JTBjRCPJT03yS0kTxO32trAc6HuCGFljSH5Kw.I4JlyAl9kYb6u-8MM-WN2Q"
 [ ] To add the v0 comparison sub-system: npx shadcn@latest add "https://v0.dev/chat/b/b_19FJyS4Oa8Q?token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SsqUYHM75vmXAS42.TtFDAElwsIM1gQJPQsUUA8JTBjRCPJT03yS0kTxO32trAc6HuCGFljSH5Kw.I4JlyAl9kYb6u-8MM-WN2Q"
