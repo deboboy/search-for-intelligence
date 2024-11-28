@@ -10,8 +10,8 @@ export function Navbar() {
 
   const links = [
     { href: 'about', label: 'About'},
-    { href: '/experiment-setup', label: 'Experiment Setup' },
-    { href: '/experiment-results', label: 'Experiment Results' },
+    { href: '/experiment-setup', label: 'Basic Setup' },
+    { href: '/advanced-setup', label: 'Advanced Setup'}
   ]
 
   return (

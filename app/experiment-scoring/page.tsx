@@ -1,5 +1,6 @@
 'use client';
 
+import Link from "next/link"
 import { useEffect, useState } from 'react';
 import { db2 } from '../lib/db2';
 import LLMEvaluationScoring from "../components/Scoring";
@@ -20,8 +21,9 @@ export default function ExperimentScoring() {
 
     return (
         <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6">Experiment Scoring</h1>
-        {latestChatId !== null && <LLMEvaluationScoring chatId={latestChatId} />}
+            <h1 className="text-3xl font-bold mb-6">Experiment Scoring</h1>
+            {latestChatId !== null && <LLMEvaluationScoring chatId={latestChatId} />}
+            <Link href="/experiment-results">Experiment Results</Link>
         </div>
     );
 }

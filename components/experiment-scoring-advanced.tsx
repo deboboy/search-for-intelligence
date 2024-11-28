@@ -80,7 +80,7 @@ export function ExperimentScoringAdvanced() {
             ))}
           </div>
         </div>
-        <Button className="w-full mt-8">SUBMIT SCORES</Button>
+        <Button className="w-full mt-8">SAVE SCORES</Button>
       </CardContent>
     </Card>
   )

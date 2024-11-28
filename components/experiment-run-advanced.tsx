@@ -35,7 +35,7 @@ export function ExperimentRunAdvanced() {
             <div>
               <h3 className="text-sm font-medium mb-2">prompt</h3>
               <Textarea 
-                placeholder="Enter prompt for LLM A..."
+                placeholder="Enter new prompt for LLM A..."
                 className="resize-none"
                 rows={3}
               />
@@ -51,7 +51,7 @@ export function ExperimentRunAdvanced() {
             <div>
               <h3 className="text-sm font-medium mb-2">prompt</h3>
               <Textarea 
-                placeholder="Enter prompt for LLM B..."
+                placeholder="Enter new prompt for LLM B..."
                 className="resize-none"
                 rows={3}
               />
