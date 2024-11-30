@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { ChevronRight } from 'lucide-react'
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export function ExperimentScoringAdvanced() {
   return (
@@ -80,7 +81,9 @@ export function ExperimentScoringAdvanced() {
             ))}
           </div>
         </div>
-        <Button className="w-full mt-8">SAVE SCORES</Button>
+        <Link href="/advanced-results" passHref>
+          <Button className="w-full mt-8">SAVE SCORES</Button>
+        </Link>
       </CardContent>
     </Card>
   )
