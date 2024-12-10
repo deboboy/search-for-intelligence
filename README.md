@@ -11,7 +11,7 @@ A new beginning for this AI experiments concept. This version will be focused on
 [x] Finish Advanced Experiment architecture by completing the PostgreSQL setup on Hetzner VPS; to enable access from the SFI app, and migration of the Prisma schema
 [x] Implement NextAuth integration with PostgreSQL adapter; documentation here https://authjs.dev/getting-started/adapters/pg
 [x] Then test the /register workflow based on the Prisma and PostgreSQL setup
-[ ] Add AWS Amplify env variables for NextAuth and PSQL integration
+[x] Add AWS Amplify env variables for NextAuth and PSQL integration
 [ ] Add DB monitoring; either on the Hetzner VPS or in AWS
 [ ] Add web analytics
 [x] Cleanup the navbar architecture to incorporate the NextAuth routing; to show who's logged in and their role within the shadcn layout

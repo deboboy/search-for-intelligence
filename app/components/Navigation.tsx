@@ -7,9 +7,11 @@ import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/s
 import { Menu } from 'lucide-react'
 
 const menuItems = [
-  { name: 'Administration', href: '/administration' },
-  { name: 'Advanced Experiment Setup', href: '/advanced-setup' },
   { name: 'About', href: '/about' },
+  { name: 'Administration', href: '/administration' },
+  { name: 'Advanced Experiment', href: '/advanced-setup' },
+  { name: 'Basic Experiment', href: '/experiment-setup'},
+  { name: 'Signin', href: '/auth/signin'}
 ]
 
 export function Navigation() {

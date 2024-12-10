@@ -117,13 +117,13 @@ const LLMEvaluationScoring: React.FC<ScoringProps> = ({ chatId }) => {
             className="flex items-center gap-2"
           >
             <Save className="w-4 h-4" />
-            Save Evaluation
+            Save evaluation
           </Button>
           
           {dbStatus && (
             <Alert className="w-auto">
               <AlertCircle className="w-4 h-4" />
-              <AlertDescription>{dbStatus}</AlertDescription>
+              <AlertDescription className="relative top-[4px]">{dbStatus}</AlertDescription>
             </Alert>
           )}
         </div>

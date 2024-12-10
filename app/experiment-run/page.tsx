@@ -8,6 +8,7 @@ import { ChatList } from '../components/ChatList';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button"; // Import Button component if not already imported
 import LLMEvaluationScoring from "../components/Scoring";
+import Link from 'next/link';
 
 // Add this type definition
 type ImageInterfaceProps = {
@@ -55,19 +56,20 @@ function ExperimentRunContent() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-5xl md:text-7xl font-extrabold mb-5 animate-fade-in-up">
-        Experiment Run
+        Basic Experiment Run
       </h1>
-      <p>Submit input to start the experiment run; then score the LLM output.</p>
+      <p className="mb-4">Submit input to start the experiment run; then score the LLM output.</p>
       <div className="flex justify-end mb-4">
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="outline">View Summary</Button>
+            <Button variant="outline">View Experiment Summary</Button>
           </SheetTrigger>
           <SheetContent className="overflow-y-auto">
             <SheetHeader>
-              <SheetTitle>Experiment Run Summary</SheetTitle>
+              <SheetTitle>Basic Experiment Summary</SheetTitle>
               <SheetDescription>
-                View summary of setup and results below for a single experiment run. TODO: add share component.
+                View summary of setup and results below for a single basic experiment.&nbsp;
+                <Link href="/experiment-results" className="text-primary hover:underline">Experiment Results</Link>
               </SheetDescription>
               <div className="mb-4">
                 <h3 className="font-bold">Setup</h3>
