@@ -11,6 +11,7 @@ A new beginning for this AI experiments concept. This version will be focused on
 [x] Finish Advanced Experiment architecture by completing the PostgreSQL setup on Hetzner VPS; to enable access from the SFI app, and migration of the Prisma schema
 [x] Implement NextAuth integration with PostgreSQL adapter; documentation here https://authjs.dev/getting-started/adapters/pg
 [x] Then test the /register workflow based on the Prisma and PostgreSQL setup
+[ ] Add AWS Amplify env variables for NextAuth and PSQL integration 
 [x] Cleanup the navbar architecture to incorporate the NextAuth routing; to show who's logged in and their role within the shadcn layout
 [ ] Then create a relationship between a user stored in PostgreSQL and the advanced experiments they run and store in IndexedDB 
 [ ] Then add a pair of text generation LLMs to be selected in /advanced-setup via OpenRouter and Hugging Face
