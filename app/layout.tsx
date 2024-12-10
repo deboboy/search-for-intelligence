@@ -1,6 +1,7 @@
 'use client';
 
-import { Navbar } from './components/Navbar';
+import { SessionProvider } from "next-auth/react"
+import { Navigation } from "./components/Navigation";
 import { Footer } from "./components/Footer";
 import { usePathname } from 'next/navigation';
 import localFont from "next/font/local";
@@ -30,11 +31,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-full`}
       >
-        {pathname !== '/' && <Navbar />}
-        <main className="flex-grow">
-          {children}
-        </main>
-        {pathname !== '/' && <Footer />}
+        <SessionProvider session={null}>
+          {pathname !== '/' && <Navigation />}
+          <main className="flex-grow container mx-auto px-4 py-8">
+            {children}
+          </main>     
+          {pathname !== '/' && <Footer />}
+        </SessionProvider>
       </body>
     </html>
   );

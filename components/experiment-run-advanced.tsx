@@ -58,9 +58,14 @@ export function ExperimentRunAdvanced() {
             </div>
           </div>
         </div>
-        <Link href="/advanced-scoring" passHref>
-          <Button className="w-full mt-8">NEXT</Button>
-        </Link>
+        <div className="flex justify-between mt-8">
+          <Link href="/advanced-setup" passHref>
+            <Button variant="outline">Previous</Button>
+          </Link>
+          <Link href="/advanced-scoring" passHref>
+            <Button>Next</Button>
+          </Link>
+        </div>
       </CardContent>
     </Card>
   )

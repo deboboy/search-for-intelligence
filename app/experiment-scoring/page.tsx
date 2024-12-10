@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useEffect, useState } from 'react';
-import { db2 } from '../lib/db2';
+import { db } from '../lib/db';
 import LLMEvaluationScoring from "../components/Scoring";
 
 export default function ExperimentScoring() {
@@ -10,7 +10,7 @@ export default function ExperimentScoring() {
 
     useEffect(() => {
         async function fetchLatestChatId() {
-        const chats = await db2.getAllChats();
+        const chats = await db.getAllChats();
         if (chats.length > 0) {
             setLatestChatId(chats[chats.length - 1].id!);
         }

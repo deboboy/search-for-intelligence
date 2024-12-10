@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useChat } from 'ai/react';
-import { db2 } from '../lib/db2';
+import { db } from '../lib/db';
 
 interface ChatInterfaceProps {
     onChatSubmit?: (newChatId: number) => void;
@@ -81,7 +81,7 @@ export default function ChatInterface({ onChatSubmit, experimentId, llm, apiRout
                     timestamp: new Date().toISOString()
                 };
                 console.log('Attempting to add chat:', newChat);
-                db2.addChat(newChat)
+                db.addChat(newChat)
                     .then((chatId) => {
                         console.log('Chat added successfully');
                         if (onChatSubmit && typeof chatId === 'number') {

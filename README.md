@@ -8,13 +8,21 @@ A new beginning for this AI experiments concept. This version will be focused on
 
 
 # TODOS
-[ ] Continue integrating the Claude.ai generated comparison component; WIP is ComparisonTableChart.tsx where /lib/db2.ts mapping is complete; continue from this response "You'll need to implement the logic for selecting experiments and calculating diffs based on your specific requirements. Also, make sure to handle cases where scores might be undefined."
-[ ] Think about how to integrate selecting two LLMs in /experiment-setup; then setting a prompt submitted to both LLMs, then seeing the output from both LLMs to be able to score the outputs
+[x] Finish Advanced Experiment architecture by completing the PostgreSQL setup on Hetzner VPS; to enable access from the SFI app, and migration of the Prisma schema
+[x] Implement NextAuth integration with PostgreSQL adapter; documentation here https://authjs.dev/getting-started/adapters/pg
+[x] Then test the /register workflow based on the Prisma and PostgreSQL setup
+[x] Cleanup the navbar architecture to incorporate the NextAuth routing; to show who's logged in and their role within the shadcn layout
+[ ] Then create a relationship between a user stored in PostgreSQL and the advanced experiments they run and store in IndexedDB 
+[ ] Then add a pair of text generation LLMs to be selected in /advanced-setup via OpenRouter and Hugging Face
+[ ] Then finish updating the advanced workflow with that text generation LLM pair
+[ ] And finally build My Experiments page to display all advanced experiments
+[x] Continue integrating the Claude.ai generated comparison component; WIP is ComparisonTableChart.tsx where /lib/db2.ts mapping is complete; continue from this response "You'll need to implement the logic for selecting experiments and calculating diffs based on your specific requirements. Also, make sure to handle cases where scores might be undefined."
+[x] Think about how to integrate selecting two LLMs in /experiment-setup; then setting a prompt submitted to both LLMs, then seeing the output from both LLMs to be able to score the outputs
 [ ] Add web analytics; if not Posthog then an equivalent; see what's low cost of free in AWS Amplify
 [ ] Add shadcn ui compare component to /experiment-results page; to select two experiments for comparison; see what v0 generated here: npx shadcn@latest add "https://v0.dev/chat/b/b_19FJyS4Oa8Q?token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SsqUYHM75vmXAS42.TtFDAElwsIM1gQJPQsUUA8JTBjRCPJT03yS0kTxO32trAc6HuCGFljSH5Kw.I4JlyAl9kYb6u-8MM-WN2Q"
 [ ] To add the v0 comparison sub-system: npx shadcn@latest add "https://v0.dev/chat/b/b_19FJyS4Oa8Q?token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SsqUYHM75vmXAS42.TtFDAElwsIM1gQJPQsUUA8JTBjRCPJT03yS0kTxO32trAc6HuCGFljSH5Kw.I4JlyAl9kYb6u-8MM-WN2Q"
 [ ] Think about whether the comparison sub-system is on displayed on /experiment-results or a page below that route; something like /experiment-results/comparison 
-[ ] Also think about how to architect the comparison sub-system to compare two different LLMs for the same input; and possibly integrate this in the /experiments-setup form
+[x] Also think about how to architect the comparison sub-system to compare two different LLMs for the same input; and possibly integrate this in the /experiments-setup form
 [ ] Fix architecture so that generated image is loaded in the Experiment Summary sheet component; and in the Experiments Results page
 [ ] Add CSV download to /experiment-results page
 [x] Add shadcn ui sort component to /experiment-results page

@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { db2, Experiment } from '../lib/db2';
+import { db, Experiment } from '../lib/db';
 import { ChatList } from '../components/ChatList';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button"; // Import Button component if not already imported
@@ -35,7 +35,7 @@ function ExperimentRunContent() {
   useEffect(() => {
     async function fetchExperiment() {
       if (experimentId) {
-        const fetchedExperiment = await db2.getExperiment(experimentId);
+        const fetchedExperiment = await db.getExperiment(experimentId);
         if (fetchedExperiment) {
           setExperiment(fetchedExperiment);
         }

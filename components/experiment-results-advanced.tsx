@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
-export function ScoreSummary() {
+export function ExperimentResultsAdvanced() {
   // This would typically come from a state management solution or props
   const scores = {
     llmA: { accuracy: 4, relevancy: 5, quality: 3, factuality: 4 },

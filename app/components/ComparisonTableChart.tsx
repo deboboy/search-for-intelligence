@@ -1,6 +1,6 @@
 'use client';
 
-import { db2, Chat } from '../lib/db2';
+import { db, Chat } from '../lib/db';
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -42,7 +42,7 @@ const ExperimentComparisonChart = () => {
 
     useEffect(() => {
         const fetchChats = async () => {
-          const allChats = await db2.getAllChats();
+          const allChats = await db.getAllChats();
           setChats(allChats);
         };
         fetchChats();

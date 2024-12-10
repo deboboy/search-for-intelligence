@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
-import { db2 } from '@/app/lib/db2'  // Adjust the import path as necessary
+import { db } from '@/app/lib/db'  // Adjust the import path as necessary
 
 // Define an interface for the LLM options
 interface LlmOption {
@@ -38,7 +38,7 @@ export function LlmExperiment() {
       }
 
       // Add the experiment to the database
-      const experimentId = await db2.addExperiment(newExperiment)
+      const experimentId = await db.addExperiment(newExperiment)
 
       console.log('Experiment added with ID:', experimentId)
 

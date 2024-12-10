@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { db2, Experiment, Chat } from '../lib/db2';
+import { db, Experiment, Chat } from '../lib/db';
 import {
   Select,
   SelectContent,
@@ -17,10 +17,10 @@ export default function ExperimentResults() {
 
   useEffect(() => {
     async function fetchData() {
-      const fetchedExperiments = await db2.getAllExperiments();
+      const fetchedExperiments = await db.getAllExperiments();
       setExperiments(fetchedExperiments);
 
-      const fetchedChats = await db2.getAllChats();
+      const fetchedChats = await db.getAllChats();
       setChats(fetchedChats);
     }
 

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { db2 } from '../lib/db2';
+import { db } from '../lib/db';
 
 type ImageInterfaceProps = {
   onChatSubmit: (newChatId: number) => void;
@@ -65,10 +65,10 @@ export default function ImageInterface({ onChatSubmit, experimentId, llm, apiRou
         const imageUrl = prediction.output[prediction.output.length - 1];
         
         // Update the experiment with the new image URL
-        await db2.updateExperimentImageUrl(experimentId, imageUrl);
+        await db.updateExperimentImageUrl(experimentId, imageUrl);
 
         // Add a new chat entry
-        const newChatId = await db2.addChat({
+        const newChatId = await db.addChat({
           input: prompt,
           content: "Image generated successfully",
           llm: [llm],

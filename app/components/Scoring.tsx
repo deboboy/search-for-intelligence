@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { AlertCircle, Save } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { db2, Chat } from '../lib/db2';
+import { db, Chat } from '../lib/db';
 
 interface ScoringProps {
   chatId: number | null;
@@ -28,19 +28,25 @@ const LLMEvaluationScoring: React.FC<ScoringProps> = ({ chatId }) => {
         }
     }, [chatId]);
 
-  const loadChat = async () => {
-    if (chatId === null) return;
-    try {
-      const loadedChat = await db2.getChatById(chatId);
-      setChat(loadedChat);
-      if (loadedChat?.scores) {
-        setScores(loadedChat.scores);
+    const loadChat = useCallback(async () => {
+      if (chatId === null) return;
+      try {
+          const loadedChat = await db.getChatById(chatId);
+          setChat(loadedChat);
+          if (loadedChat?.scores) {
+              setScores(loadedChat.scores);
+          }
+      } catch (error) {
+          console.error('Error loading chat:', error);
+          setDbStatus('Error loading chat');
       }
-    } catch (error) {
-        console.error('Error saving evaluation:', error);
-        setDbStatus('Error saving evaluation');
-    }
-  };
+    }, [chatId]);
+
+    useEffect(() => {
+        if (chatId !== null) {
+            loadChat();
+        }
+    }, [chatId, loadChat]);
 
   const handleSliderChange = (metric: keyof typeof scores, newValue: number[]) => {
     setScores(prev => ({
@@ -63,7 +69,7 @@ const LLMEvaluationScoring: React.FC<ScoringProps> = ({ chatId }) => {
             factuality: scores.factuality,
         };
       
-        await db2.updateChatScores(chatId, scoresToSave);
+        await db.updateChatScores(chatId, scoresToSave);
         setDbStatus('Evaluation saved');
         await loadChat(); // Reload the chat to confirm the update
         } catch (error) {

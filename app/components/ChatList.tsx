@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { db2, Chat } from '../lib/db2';
+import { db, Chat } from '../lib/db';
 
 interface ChatListProps {
   experimentId: number;
@@ -10,7 +10,7 @@ export function ChatList({ experimentId }: ChatListProps) {
 
   useEffect(() => {
     async function fetchChats() {
-      const allChats = await db2.getAllChats();
+      const allChats = await db.getAllChats();
       const experimentChats = allChats.filter(chat => chat.experimentId === experimentId);
       setChats(experimentChats);
     }

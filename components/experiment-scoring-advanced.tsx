@@ -81,9 +81,14 @@ export function ExperimentScoringAdvanced() {
             ))}
           </div>
         </div>
-        <Link href="/advanced-results" passHref>
-          <Button className="w-full mt-8">SAVE SCORES</Button>
-        </Link>
+        <div className="flex justify-between mt-8">
+          <Link href="/advanced-run" passHref>
+            <Button variant="outline">Previous</Button>
+          </Link>
+          <Link href="/advanced-results" passHref>
+            <Button>Next</Button>
+          </Link>
+        </div>
       </CardContent>
     </Card>
   )
