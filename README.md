@@ -13,6 +13,7 @@ A new beginning for this AI experiments concept. This version will be focused on
 [x] Then test the /register workflow based on the Prisma and PostgreSQL setup
 [ ] Add AWS Amplify env variables for NextAuth and PSQL integration
 [ ] Add DB monitoring; either on the Hetzner VPS or in AWS
+[ ] Add web analytics
 [x] Cleanup the navbar architecture to incorporate the NextAuth routing; to show who's logged in and their role within the shadcn layout
 [ ] Then create a relationship between a user stored in PostgreSQL and the advanced experiments they run and store in IndexedDB 
 [ ] Then add a pair of text generation LLMs to be selected in /advanced-setup via OpenRouter and Hugging Face
