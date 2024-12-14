@@ -2,18 +2,19 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Textarea } from "@/components/ui/textarea"
 import { ChevronRight } from 'lucide-react'
 
 export function ExperimentSetupAdvanced() {
+
   return (
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
         <div className="flex items-center text-sm text-muted-foreground mt-4">
-          <span className="font-medium text-primary">Step 1</span>
+          <span className="font-bold text-primary">Step 1</span>
           <ChevronRight className="w-4 h-4 mx-2" />
           <span className="text-muted-foreground">Step 2</span>
           <ChevronRight className="w-4 h-4 mx-2" />
@@ -21,7 +22,6 @@ export function ExperimentSetupAdvanced() {
         </div>
         <div className="flex justify-between items-center">
           <div>
-            <CardTitle className="text-xl font-bold">Advanced Experiment Setup</CardTitle>
             <p className="text-sm text-muted-foreground">Select a pair of LLMs, add a prompt, then score their output.  Fill out the form to get started.</p>
           </div>
         </div>

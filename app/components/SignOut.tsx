@@ -1,16 +1,12 @@
 'use client'
 
 import { signOut } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export default function SignOutLink() {
-  const router = useRouter()
-
   const handleSignOut = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
-    await signOut({ redirect: false })
-    router.push('/auth/signin') // Redirect to sign-in page after signing out
+    await signOut({ callbackUrl: '/auth/signin' })
   }
 
   return (

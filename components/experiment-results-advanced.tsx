@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { ChevronRight } from 'lucide-react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
@@ -30,11 +30,10 @@ export function ExperimentResultsAdvanced() {
           <ChevronRight className="w-4 h-4 mx-2" />
           <span className="font-medium text-muted-foreground">Step 3</span>
           <ChevronRight className="w-4 h-4 mx-2"/>
-          <span className="text-primary">Step 4</span>
+          <span className="font-bold text-primary">Step 4</span>
         </div>
         <div className="flex justify-between items-center">
           <div>
-            <CardTitle className="text-xl font-bold">Advanced Experiment Results</CardTitle>
             <p className="text-sm text-muted-foreground">Review and compare scores from each LLM</p>
           </div>
         </div>
@@ -67,7 +66,9 @@ export function ExperimentResultsAdvanced() {
           <Link href="/advanced-scoring" passHref>
             <Button variant="outline">Previous</Button>
           </Link>
-          <Button>Finish Experiment</Button>
+          <Link href="/advanced-setup" passHref>
+            <Button>Finish Experiment</Button>
+          </Link>
         </div>
       </CardContent>
     </Card>

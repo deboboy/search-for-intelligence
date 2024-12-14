@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { ChevronRight } from 'lucide-react'
@@ -16,11 +16,10 @@ export function ExperimentScoringAdvanced() {
           <ChevronRight className="w-4 h-4 mx-2" />
           <span className="font-medium text-muted-foreground">Step 2</span>
           <ChevronRight className="w-4 h-4 mx-2" />
-          <span className="text-primary">Step 3</span>
+          <span className="font-bold text-primary">Step 3</span>
         </div>
         <div className="flex justify-between items-center">
           <div>
-            <CardTitle className="text-xl font-bold">Advanced Experiment Scoring</CardTitle>
             <p className="text-sm text-muted-foreground">Score the output from each LLM</p>
           </div>
         </div>
