@@ -10,6 +10,7 @@ const menuItems = [
   { name: 'About', href: '/about' },
   { name: 'Advanced Experiment', href: '/advanced-setup' },
   { name: 'Basic Experiment', href: '/experiment-setup'},
+  { name: 'Basic Experiment Log', href: '/experiment-results'}
 ]
 
 export function Navigation() {

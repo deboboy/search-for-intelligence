@@ -39,9 +39,9 @@ export default function ExperimentResults() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-5xl md:text-7xl font-extrabold mb-5 animate-fade-in-up">
-        Basic Experiment Results
+        Basic Experiment Log
       </h1>
-      <p>View all basic experiment results.  Sort from newest to oldest.</p>
+      <p className="mb-4">View all basic experiment results.  Sort from newest to oldest.</p>
       <div className="flex justify-end mb-4">
         <Select onValueChange={setSortOrder} defaultValue={sortOrder}>
           <SelectTrigger className="w-[180px]">

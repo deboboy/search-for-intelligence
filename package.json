@@ -23,6 +23,7 @@
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slider": "^1.2.1",
     "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-toast": "^1.2.3",
     "ai": "^3.4.31",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",

@@ -4,8 +4,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
-import { AlertCircle, Save } from 'lucide-react';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Save } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 import { db, Chat } from '../lib/db';
 
 interface ScoringProps {
@@ -19,8 +19,8 @@ const LLMEvaluationScoring: React.FC<ScoringProps> = ({ chatId }) => {
         quality: 0.5,
         factuality: 0.5
     });
-    const [dbStatus, setDbStatus] = useState('');
     const [chat, setChat] = useState<Chat | null>(null);
+    const { toast } = useToast()
 
     useEffect(() => {
         if (chatId !== null) {
@@ -38,7 +38,6 @@ const LLMEvaluationScoring: React.FC<ScoringProps> = ({ chatId }) => {
           }
       } catch (error) {
           console.error('Error loading chat:', error);
-          setDbStatus('Error loading chat');
       }
     }, [chatId]);
 
@@ -58,9 +57,13 @@ const LLMEvaluationScoring: React.FC<ScoringProps> = ({ chatId }) => {
   const saveEvaluation = async () => {
     try {
         if (chatId === null) {
-            setDbStatus('Cannot save: Chat ID is null');
-            return;
-          }
+          toast({
+            title: "Error",
+            description: "Cannot save: Chat ID is null",
+            variant: "destructive",
+          })
+          return;
+        }
 
         const scoresToSave = {
             accuracy: scores.accuracy,
@@ -70,16 +73,23 @@ const LLMEvaluationScoring: React.FC<ScoringProps> = ({ chatId }) => {
         };
       
         await db.updateChatScores(chatId, scoresToSave);
-        setDbStatus('Evaluation saved');
+        toast({
+          title: "Success",
+          description: "Evaluation saved successfully",
+        })
         await loadChat(); // Reload the chat to confirm the update
         } catch (error) {
         console.error('Error saving evaluation:', error);
-        setDbStatus('Error saving evaluation');
+        toast({
+          title: "Error",
+          description: "Error saving evaluation",
+          variant: "destructive",
+        })
         }
   };
 
   if (chatId === null || !chat) {
-    return <div className="mt-5">Waiting for human input...</div>;
+    return <div className="mt-5"></div>;
   }
 
   return (
@@ -119,13 +129,6 @@ const LLMEvaluationScoring: React.FC<ScoringProps> = ({ chatId }) => {
             <Save className="w-4 h-4" />
             Save evaluation
           </Button>
-          
-          {dbStatus && (
-            <Alert className="w-auto">
-              <AlertCircle className="w-4 h-4" />
-              <AlertDescription className="relative top-[4px]">{dbStatus}</AlertDescription>
-            </Alert>
-          )}
         </div>
       </CardContent>
     </Card>

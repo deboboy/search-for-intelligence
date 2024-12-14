@@ -2,6 +2,7 @@
 
 import { Navigation } from "./components/Navigation";
 import { Footer } from "./components/Footer";
+import { Toaster } from "@/components/ui/toaster"
 import { usePathname } from 'next/navigation';
 import localFont from "next/font/local";
 import "./globals.css";
@@ -33,6 +34,7 @@ export default function RootLayout({
           {pathname !== '/' && <Navigation />}
           <main className="flex-grow container mx-auto px-4 py-8">
             {children}
+            <Toaster />
           </main>     
           {pathname !== '/' && <Footer />}
       </body>

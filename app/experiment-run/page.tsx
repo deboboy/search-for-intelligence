@@ -8,7 +8,6 @@ import { ChatList } from '../components/ChatList';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button"; // Import Button component if not already imported
 import LLMEvaluationScoring from "../components/Scoring";
-import Link from 'next/link';
 
 // Add this type definition
 type ImageInterfaceProps = {
@@ -27,6 +26,7 @@ const ChatInterface = dynamic(() => import('../components/ChatInterface'))
 function ExperimentRunContent() {
     const [currentChatId, setCurrentChatId] = useState<number | null>(null);
     const [experiment, setExperiment] = useState<Experiment | null>(null);
+    const [chatSubmitted, setChatSubmitted] = useState(false); // Add this line
     const searchParams = useSearchParams();
     const experimentId = Number(searchParams.get('id'));
     const llm = searchParams.get('llm') || '';
@@ -47,6 +47,7 @@ function ExperimentRunContent() {
 
   const handleChatSubmit = (newChatId: number) => {
     setCurrentChatId(newChatId);
+    setChatSubmitted(true); // Add this line
   };
 
   if (!experiment) {
@@ -60,16 +61,16 @@ function ExperimentRunContent() {
       </h1>
       <p className="mb-4">Submit input to start the experiment run; then score the LLM output.</p>
       <div className="flex justify-end mb-4">
-        <Sheet>
+        {chatSubmitted && ( // Add this condition
+          <Sheet>
           <SheetTrigger asChild>
             <Button variant="outline">View Experiment Summary</Button>
           </SheetTrigger>
-          <SheetContent className="overflow-y-auto">
+          <SheetContent className="overflow-y-auto mt-8">
             <SheetHeader>
               <SheetTitle>Basic Experiment Summary</SheetTitle>
               <SheetDescription>
                 View summary of setup and results below for a single basic experiment.&nbsp;
-                <Link href="/experiment-results" className="text-primary hover:underline">Experiment Results</Link>
               </SheetDescription>
               <div className="mb-4">
                 <h3 className="font-bold">Setup</h3>
@@ -80,7 +81,8 @@ function ExperimentRunContent() {
               <ChatList experimentId={experiment.id!} />
             </SheetHeader>
           </SheetContent>
-        </Sheet>
+          </Sheet>
+        )}
       </div>
       <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-6">
       <div className="w-full md:w-1/2">
